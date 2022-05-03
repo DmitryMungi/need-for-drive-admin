@@ -1,0 +1,52 @@
+@import '../shared/common-styles/variables.less';
+@import '../shared/common-styles/text.less';
+@import '../shared/common-styles/input.less';
+@import '../shared/common-styles/button.less';
+
+:host {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  padding-top: 167px;
+  justify-content: center;
+  background: @color-background;
+}
+
+.logo-wrapp {
+  padding: 16px 0;
+  text-align: center;
+}
+
+.auth-container {
+  padding: 19.5px 18px 20.5px 17px;
+  background: @color-white;
+  border-radius: 9px;
+  box-shadow: @shadow;
+
+  .auth-title {
+    text-align: center;
+  }
+
+  .auth-form {
+
+    &__action {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      .action-link {
+        color: @color-blue;
+        font-size: 10.5px;
+        line-height: 120%;
+      }
+    }
+  }
+
+  .auth-input {
+    margin-bottom: 15px;
+
+    .input__field {
+      width: 341.5px;
+    }
+  }
+}
