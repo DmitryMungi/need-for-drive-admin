@@ -4,7 +4,7 @@ import { IAuthRes } from "src/app/auth-page/auth.interface";
 @Injectable({
   providedIn: "root",
 })
-export class tokenService {
+export class TokenService {
   public get token(): string | null {
     return localStorage.getItem("token");
   }

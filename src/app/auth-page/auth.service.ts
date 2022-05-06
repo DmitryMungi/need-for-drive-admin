@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { environment } from "src/environments/environment";
 import { catchError, Observable, Subject, tap, throwError } from "rxjs";
-import { tokenService } from "../shared/services/token.service";
+import { TokenService } from "../shared/services/token.service";
 import { IAuth, IAuthRes } from "./auth.interface";
 
 @Injectable({
@@ -11,7 +11,7 @@ import { IAuth, IAuthRes } from "./auth.interface";
 export class AuthService {
   public error = new Subject<string>();
 
-  constructor(private http: HttpClient, private tokenService: tokenService) {}
+  constructor(private http: HttpClient, private tokenService: TokenService) {}
 
   public login(item: IAuth): Observable<IAuthRes> {
     return this.http

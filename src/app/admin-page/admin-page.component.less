@@ -1,0 +1,21 @@
+@import '../shared/common-styles/variables.less';
+
+:host {
+  display: flex;
+}
+
+.side-container {
+  width: 20%;
+  position: relative;
+  box-shadow: @shadow-right;
+}
+
+.main-container {
+  width: 80%;
+}
+
+.main-content {
+  padding: 27.5px 25.5px;
+  min-height: calc(100vh - (67.5px + 72px));
+  background: @color-background;
+}

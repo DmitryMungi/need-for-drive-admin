@@ -1,0 +1,45 @@
+@import '../../shared/common-styles/variables.less';
+
+.side-bar {
+  &__header {
+    position: relative;
+    padding: 21px 49px;
+    border-bottom: 1px solid @color-grey-10;
+    background-color: @color-white;
+    z-index: 10;
+  }
+
+  &__step {
+    display: flex;
+    align-items: center;
+    padding: 20px 10px 20px 28px;
+    border-bottom: 1px solid @color-grey-10;
+    font-size: 15px;
+    color: @color-navy-blue;
+    cursor: pointer;
+
+    .step_icon {
+      margin-right: 10px;
+      display: flex;
+      align-items: center;
+
+      .icon-img {
+        width: 15px;
+        height: 15px;
+        fill: @color-grey-20;
+      }
+    }
+  }
+
+  &__step.active {
+    color: @color-blue;
+    background: @color-background-active;
+    border-left: 4px solid @color-blue;
+
+    .step_icon {
+      .icon-img {
+        fill: @color-blue;
+      }
+    }
+  }
+}

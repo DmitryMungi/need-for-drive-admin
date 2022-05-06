@@ -1,0 +1,25 @@
+@import '../../shared/common-styles/variables.less';
+
+.footer {
+  padding: 27px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: 'Helvetica';
+  font-weight: 400;
+  box-shadow: @shadow-top;
+  background: @color-white;
+
+  &__links {
+    .link {
+      font-size: 14px;
+      margin-left: 16px;
+      color: @color-blue;
+    }
+  }
+
+  &__iso-sign {
+    font-size: 14px;
+    color: @color-grey-40;
+  }
+}

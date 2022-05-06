@@ -1,0 +1,37 @@
+<header class="header">
+  <div class="header__search">
+    <label class="search-label" for="search">
+      <span class="icon">
+        <svg class="icon__search">
+          <use xlink:href="assets/sprite/symbol-defs.svg#search-icon"></use>
+        </svg>
+      </span>
+      <input
+        class="input-search"
+        name="search"
+        placeholder="Поиск..."
+        type="text"
+      />
+    </label>
+  </div>
+
+  <div class="header__natification">
+    <img
+      class="notifications-img"
+      src="../../../assets/img/notifications.svg"
+      alt="notifications"
+    />
+  </div>
+  <div class="header__details text-helvetica" #details>
+    <img
+      class="details-img"
+      src="../../../assets/img/user-avatar.jpg"
+      alt="avatar"
+    />
+    <span (click)="openDetails()" class="details-user">Admin</span>
+
+    <div class="details-dropdown">
+      <div (click)="inOut()" class="dropdown-item">Выход</div>
+    </div>
+  </div>
+</header>
