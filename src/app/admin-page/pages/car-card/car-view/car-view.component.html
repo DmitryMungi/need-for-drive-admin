@@ -1,0 +1,11 @@
+<div class="view-container">
+  <div class="default-view" *ngIf="imgModel.src === ''">
+    Изображение не загружено
+  </div>
+  <img class="view-img" alt="" #imgModel />
+  <h4 class="view-name text-helvetica color-navy">Название модели</h4>
+  <div class="view-type">Тип</div>
+  <app-input-file (getImage)="getImage($event)"></app-input-file>
+</div>
+<app-progress [level]="pLevel"></app-progress>
+<app-textarea></app-textarea>

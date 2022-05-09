@@ -10,9 +10,10 @@ const routes: Routes = [
     path: "",
     component: AdminPageComponent,
     children: [
-      { path: "card", component: CarCardComponent },
-      { path: "list", component: CarListComponent },
-      { path: "orders", component: OrdersComponent },
+      { path: "admin/card", component: CarCardComponent },
+      { path: "admin/list", component: CarListComponent },
+      { path: "admin/orders", component: OrdersComponent },
+      { path: "**", redirectTo: "admin/card" },
     ],
   },
 ];
