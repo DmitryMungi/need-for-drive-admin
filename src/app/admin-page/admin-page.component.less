@@ -1,4 +1,5 @@
 @import '../shared/common-styles/variables.less';
+@import '../shared/common-styles/button.less';
 
 :host {
   display: flex;
@@ -6,8 +7,23 @@
 
 .side-container {
   width: 20%;
+  min-width: 230px;
   position: relative;
   box-shadow: @shadow-right;
+  background: @color-white;
+
+  .side-bar__btn {
+    position: absolute;
+    right: -20px;
+    top: 45%;
+    display: none;
+  }
+
+  .icon-img {
+    width: 30px;
+    height: 30px;
+    stroke: @color-black;
+  }
 }
 
 .main-container {
@@ -18,4 +34,35 @@
   padding: 27.5px 25.5px;
   min-height: calc(100vh - (67.5px + 72px));
   background: @color-background;
+}
+
+@media (max-width: 750px) {
+  .side-container {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    z-index: 10;
+    min-width: auto;
+    width: 20px;
+
+    .side-menu {
+      display: none;
+    }
+
+    .side-bar__btn {
+      display: block;
+    }
+  }
+
+  .side-container.active {
+    width: 240px;
+
+    .side-menu {
+      display: block;
+    }
+  }
+
+  .main-container {
+    width: 100%;
+  }
 }

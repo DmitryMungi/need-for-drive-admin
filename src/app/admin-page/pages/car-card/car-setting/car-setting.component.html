@@ -1,2 +1,85 @@
-<h3 class="setting__title">Настройки автомобиля</h3>
-<div class="setting__container"></div>
+<h3 class="setting__title color-navy">Настройки автомобиля</h3>
+
+<div class="setting">
+  <div class="setting__container">
+    <div class="row">
+      <app-input
+        class="set-input"
+        name="model"
+        label="Модель автомобиля"
+        (changeValue)="changeModel($event)"
+      ></app-input>
+      <app-input-select
+        class="set-input"
+        label="Тип автомобиля"
+        name="type"
+        [items]="categotyList"
+        placeholder="Выберете тип"
+        (changeValue)="changeType($event)"
+      ></app-input-select>
+    </div>
+    <div class="row">
+      <app-input
+        class="set-input"
+        name="number"
+        label="Номер автомобиля"
+        (changeValue)="changeNumber($event)"
+      ></app-input>
+
+      <div class="colors-values">
+        <div class="input-field">
+          <app-input
+            class="input_set-color"
+            name="color"
+            label="Доступные цвета"
+            placeholder="Введите цвет"
+            (changeValue)="addColor($event)"
+          ></app-input>
+          <button class="btn-plus btn_set-color"></button>
+        </div>
+        <div class="checkbox-field">
+          <div
+            class="checkbox__item"
+            *ngFor="let color of colorsList; let i = index"
+          >
+            <app-checkbox
+              (toggleCheckBox)="toggleCheckBox($event)"
+              [label]="color"
+              [name]="i.toString()"
+              [isChecked]="true"
+            ></app-checkbox>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="daterange-container">
+        <app-input
+          class="set-input"
+          name="price-min"
+          label="Минимальная цена"
+          type="number"
+          step="10"
+          (changeValue)="changePriceMin($event)"
+        ></app-input>
+        <app-input
+          class="set-input"
+          name="price-max"
+          label="Максимальная цена"
+          type="number"
+          step="10"
+          (changeValue)="changePriceMax($event)"
+        ></app-input>
+      </div>
+    </div>
+  </div>
+
+  <div class="button-container">
+    <div>
+      <button class="btn btn-primary btn-size-m">Сохранить</button>
+      <button class="btn btn-grey btn-size-m">Отменить</button>
+    </div>
+
+    <button class="btn btn-red btn-size-m">Удалить</button>
+  </div>
+</div>

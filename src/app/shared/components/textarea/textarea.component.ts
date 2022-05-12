@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, EventEmitter, Input, Output } from "@angular/core";
 
 @Component({
   selector: "app-textarea",
@@ -6,5 +6,8 @@ import { Component } from "@angular/core";
   styleUrls: ["./textarea.component.less"],
 })
 export class TextareaComponent {
+  @Input() label: string = "";
+  @Input() placeholder: string = "";
+  @Output() changeValue = new EventEmitter<string>();
   constructor() {}
 }

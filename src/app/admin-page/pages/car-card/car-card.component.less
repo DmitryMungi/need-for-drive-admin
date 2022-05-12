@@ -6,4 +6,40 @@
 
 .page__content {
   display: flex;
+  justify-content: space-between;
+}
+
+.content-view {
+  width: 30%;
+}
+
+.content-setting {
+  width: 68%;
+}
+
+@media (max-width: 1160px) {
+  .content-view {
+    width: 40%;
+  }
+
+  .content-setting {
+    width: 58%;
+  }
+}
+
+@media (max-width: 1020px) {
+  .page__content {
+    flex-direction: column;
+    justify-content: baseline;
+    align-items: center;
+  }
+
+  .content-view {
+    width: 80%;
+    margin-bottom: 20px;
+  }
+
+  .content-setting {
+    width: 100%;
+  }
 }

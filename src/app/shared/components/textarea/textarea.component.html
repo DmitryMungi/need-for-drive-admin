@@ -1,2 +1,7 @@
-<label class="area-label">Описание</label>
-<textarea class="area-field" placeholder="Введите описание..."></textarea>
+<label class="area-label">{{ label }}</label>
+<textarea
+  (change)="changeValue.emit(textarea.value)"
+  class="area-field"
+  [placeholder]="placeholder"
+  #textarea
+></textarea>

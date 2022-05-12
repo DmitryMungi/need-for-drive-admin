@@ -1,2 +1,86 @@
 @import '../../../../shared/common-styles/variables.less';
 @import '../../../../shared/common-styles/text.less';
+@import '../../../../shared/common-styles/input.less';
+@import '../../../../shared/common-styles/button.less';
+
+:host {
+  padding: 20px;
+  background-color: @color-white;
+  border-radius: 9px;
+  width: 100%;
+  box-shadow: @shadow;
+
+  .setting__title {
+    margin-bottom: 42px;
+  }
+
+  .setting {
+    height: 84%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+
+  .set-input {
+    width: 46%;
+    margin-bottom: 10px;
+  }
+
+  .daterange-container {
+    .set-input {
+      width: 80%;
+    }
+  }
+
+  .colors-values {
+    .input-field {
+      display: flex;
+      align-items: center;
+
+      .input_set-color {
+        margin-right: 12px;
+      }
+
+      .btn_set-color {
+        margin-top: 11px;
+      }
+    }
+
+    .checkbox-field {
+      .checkbox__item {
+        margin-bottom: 8px;
+      }
+    }
+  }
+
+  .button-container {
+    display: flex;
+    justify-content: space-between;
+
+    .btn {
+      margin: 0 6px;
+    }
+  }
+}
+
+@media (max-width: 520px){
+  .row {
+    flex-direction: column;
+
+    .set-input {
+      width: 100%;
+    }
+  }
+
+  .button-container {
+    .btn:first-child {
+      margin-bottom: 12px;
+    }
+  }
+}

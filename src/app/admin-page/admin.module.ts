@@ -14,7 +14,10 @@ import { InputFileModule } from "../shared/components/input-file/input.module";
 import { CommonModule } from "@angular/common";
 import { ProgressModule } from "../shared/components/progress/progress.module";
 import { TextAreaModule } from "../shared/components/textarea/textarea.module";
-import { CarSettingComponent } from './pages/car-card/car-setting/car-setting.component';
+import { CarSettingComponent } from "./pages/car-card/car-setting/car-setting.component";
+import { InputModule } from "../shared/components/input/input.module";
+import { InputSelectModule } from "../shared/components/input-select/input-select.module";
+import { CheckBoxModule } from "../shared/components/checkbox/checkbox.module";
 
 @NgModule({
   declarations: [
@@ -36,6 +39,9 @@ import { CarSettingComponent } from './pages/car-card/car-setting/car-setting.co
     ProgressModule,
     TextAreaModule,
     CommonModule,
+    InputModule,
+    InputSelectModule,
+    CheckBoxModule,
   ],
   exports: [AdminPageComponent],
 })

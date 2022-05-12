@@ -37,6 +37,56 @@
   }
 }
 
+.btn-grey {
+  background-color: @color-grey-10;
+  color: @color-navy-blue;
+
+  &:hover {
+    background: darken(@color-grey-10, 10%);
+  }
+
+  &:active {
+    background: darken(@color-grey-10, 20%);
+  }
+}
+
+.btn-red {
+  background-color: @color-red;
+  color: @color-white;
+
+  &:hover {
+    background: darken( @color-red, 10%);
+  }
+
+  &:active {
+    background: darken( @color-red, 20%);
+  }
+}
+
+.btn-plus {
+  border-radius: 4px;
+  border: 1px solid @color-blye-10;
+
+  display:inline-block;
+  width: 30px;
+  height: 30px;
+  background:
+    linear-gradient(@color-blye-10, @color-blye-10),
+    linear-gradient(@color-blye-10, @color-blye-10),
+    @color-white;
+  background-position:center;
+  background-size: 50% 2px,2px 50%;
+  background-repeat:no-repeat;
+  cursor: pointer;
+}
+
+.btn-icon {
+  padding: 4px;
+  border-radius: 50px;
+  background-color: @color-white;
+  cursor: pointer;
+}
+
 .btn-size-m {
   width: 110px;
 }

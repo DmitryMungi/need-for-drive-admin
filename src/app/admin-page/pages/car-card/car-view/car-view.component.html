@@ -8,4 +8,8 @@
   <app-input-file (getImage)="getImage($event)"></app-input-file>
 </div>
 <app-progress [level]="pLevel"></app-progress>
-<app-textarea></app-textarea>
+<app-textarea
+  label="Описание"
+  placeholder="Введите описание..."
+  (changeValue)="textareaChange($event)"
+></app-textarea>

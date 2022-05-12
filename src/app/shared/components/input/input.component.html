@@ -1,0 +1,15 @@
+<label class="input__label" [for]="name">{{ label }}</label>
+<input
+  class="input__field"
+  [name]="name"
+  [type]="type"
+  [value]="value"
+  [placeholder]="placeholder"
+  [step]="step"
+  (change)="changeValue.emit(input.value)"
+  (focus)="onFocus()"
+  (blur)="onBlur()"
+  [min]="min"
+  [max]="max"
+  #input
+/>

@@ -1,0 +1,18 @@
+<app-input
+  [label]="label"
+  [name]="name"
+  [placeholder]="placeholder"
+  (changeValue)="valueIsCange($event)"
+  (focus)="selectOpen()"
+  (blur)="selectClose()"
+  [value]="value"
+></app-input>
+<ul *ngIf="isOpen" class="select-list" #select>
+  <li
+    class="select-list__item"
+    *ngFor="let item of items"
+    (click)="onItemClick(item)"
+  >
+    {{ item }}
+  </li>
+</ul>

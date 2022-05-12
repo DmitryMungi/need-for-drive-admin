@@ -33,6 +33,7 @@
     align-items: center;
     padding-right: 28px;
     position: relative;
+    cursor: pointer;
 
     .details-img {
       margin-left: 25.5px;
@@ -46,7 +47,6 @@
       padding-right: 54px;
       font-size: 15px;
       color: @color-black-20;
-      cursor: pointer;
 
       &::after {
         content: '';
@@ -94,6 +94,40 @@
 
     .details-dropdown {
       display: block;
+    }
+  }
+}
+
+@media (max-width: 510px){
+  .header {
+
+    &__details{
+      padding-right: 8px;
+
+      .details-user {
+        height: 10px;
+        padding-right: 10px;
+
+        &__text {
+          display: none;
+        }
+      }
+
+      .dropdown-item__text {
+        display: none;
+      }
+    }
+  }
+}
+
+@media (max-width: 510px) {
+
+  .header {
+    &__details {
+      .details-img {
+        width: 32px;
+        margin-left: 10px;
+      }
     }
   }
 }
