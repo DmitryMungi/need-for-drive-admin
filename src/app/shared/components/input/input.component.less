@@ -1,5 +1,9 @@
 @import '../../../shared/common-styles/variables.less';
 
+:host {
+  position: relative;
+}
+
 input.ng-touched.ng-invalid {
   border: solid @color-red-error 0.5px;
   box-shadow: @shadow-error;
@@ -29,6 +33,22 @@ input.ng-touched.ng-invalid {
 
     &:focus {
       outline: 1px solid @color-blye-10;
+    }
+  }
+
+  .input__btn {
+    position: absolute;
+    background-color: @color-white;
+    border: none;
+    outline: none;
+    right: 14px;
+    top: 30px;
+    cursor: pointer;
+
+    .close-icon {
+      stroke: black;
+      width: 12px;
+      height: 12px;
     }
   }
 }

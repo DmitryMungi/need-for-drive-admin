@@ -13,3 +13,8 @@
   [max]="max"
   #input
 />
+<button *ngIf="input.value != ''" (click)="onDeleteValue()" class="input__btn">
+  <svg class="close-icon">
+    <use xlink:href="assets/sprite/symbol-defs.svg#close-icon"></use>
+  </svg>
+</button>

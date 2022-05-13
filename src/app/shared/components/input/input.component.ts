@@ -38,4 +38,8 @@ export class InputComponent {
   onBlur() {
     this.blur.emit();
   }
+
+  onDeleteValue() {
+    this.input.nativeElement.value = "";
+  }
 }
