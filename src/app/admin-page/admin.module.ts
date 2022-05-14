@@ -18,6 +18,10 @@ import { CarSettingComponent } from "./pages/car-card/car-setting/car-setting.co
 import { InputModule } from "../shared/components/input/input.module";
 import { InputSelectModule } from "../shared/components/input-select/input-select.module";
 import { CheckBoxModule } from "../shared/components/checkbox/checkbox.module";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { ButtonCloseComponent } from "../shared/components/button-close/button-close.component";
+import { ButtonCloseModule } from "../shared/components/button-close/button-close.module";
+import { DropdownModule } from "../shared/components/dropdown/dropdown.module";
 
 @NgModule({
   declarations: [
@@ -42,6 +46,10 @@ import { CheckBoxModule } from "../shared/components/checkbox/checkbox.module";
     InputModule,
     InputSelectModule,
     CheckBoxModule,
+    FormsModule,
+    ReactiveFormsModule,
+    ButtonCloseModule,
+    DropdownModule,
   ],
   exports: [AdminPageComponent],
 })

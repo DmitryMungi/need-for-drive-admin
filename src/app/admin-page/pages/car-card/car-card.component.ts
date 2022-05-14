@@ -3,6 +3,7 @@ import { tap } from "rxjs";
 import { CardApiService, ICategory } from "./car-card.api.service";
 import { CardService } from "./card.service";
 import { UntilDestroy } from "@ngneat/until-destroy";
+import { FormGroup } from "@angular/forms";
 
 @UntilDestroy({ checkProperties: true })
 @Component({
@@ -11,6 +12,8 @@ import { UntilDestroy } from "@ngneat/until-destroy";
   styleUrls: ["./car-card.component.less"],
 })
 export class CarCardComponent implements OnInit {
+  public formModel: FormGroup = new FormGroup({});
+
   constructor(
     private cardApiService: CardApiService,
     private cardService: CardService
@@ -19,6 +22,7 @@ export class CarCardComponent implements OnInit {
   public categoryList: string[] = [];
 
   ngOnInit(): void {
+    console.log(this.formModel);
     this.cardApiService
       .getCategory()
       .pipe(tap((res) => this.createList(res)))

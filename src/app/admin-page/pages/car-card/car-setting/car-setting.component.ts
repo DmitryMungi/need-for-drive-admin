@@ -1,4 +1,11 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
+import {
+  ControlContainer,
+  FormControl,
+  FormGroup,
+  FormGroupDirective,
+  Validators,
+} from "@angular/forms";
 import { IChek } from "src/app/shared/components/checkbox/checkbox.component";
 import { CardService, IPrice } from "../card.service";
 
@@ -6,9 +13,26 @@ import { CardService, IPrice } from "../card.service";
   selector: "app-car-setting",
   templateUrl: "./car-setting.component.html",
   styleUrls: ["./car-setting.component.less"],
+  viewProviders: [
+    { provide: ControlContainer, useExisting: FormGroupDirective },
+  ],
 })
 export class CarSettingComponent implements OnInit {
-  constructor(private cardService: CardService) {}
+  @ViewChild("inputModel") inputModel!: ElementRef;
+  public settingForm = new FormGroup({
+    model: new FormControl("", [Validators.required, Validators.minLength(3)]),
+    type: new FormControl("", Validators.required),
+    number: new FormControl("", Validators.required),
+    colors: new FormControl([], Validators.required),
+    priceMin: new FormControl(0, Validators.required),
+    priceMax: new FormControl(0, Validators.required),
+  });
+  public isOpen: boolean = false;
+
+  constructor(
+    private cardService: CardService,
+    private formModel: FormGroupDirective
+  ) {}
 
   public price: IPrice = {
     priceMax: 0,
@@ -22,7 +46,17 @@ export class CarSettingComponent implements OnInit {
   public colorsList: string[] = [];
   public activeColorList: string[] = [];
 
-  ngOnInit(): void {}
+  public controlIsValid(name: string): boolean {
+    return (
+      this.settingForm.controls[name].valid ||
+      this.settingForm.controls[name].untouched
+    );
+  }
+
+  ngOnInit(): void {
+    this.formModel.form.addControl("settings", this.settingForm);
+    console.log(this.settingForm.controls["model"]);
+  }
 
   addColor(value: string) {
     if (value != "" && value != null) {
@@ -32,10 +66,21 @@ export class CarSettingComponent implements OnInit {
 
   changeModel(value: string) {
     this.cardService.setCarName(value);
+    this.settingForm.patchValue({ model: value });
   }
 
   changeType(value: string) {
     this.cardService.setCategoryValue(value);
+  }
+
+  typeOnFocus() {
+    this.isOpen = true;
+  }
+
+  typeBlur() {
+    setTimeout(() => {
+      this.isOpen = false;
+    }, 200);
   }
 
   changeNumber(value: string) {

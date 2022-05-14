@@ -42,4 +42,8 @@ export class InputComponent {
   onDeleteValue() {
     this.input.nativeElement.value = "";
   }
+
+  onChange(value: string) {
+    this.changeValue.emit(value);
+  }
 }

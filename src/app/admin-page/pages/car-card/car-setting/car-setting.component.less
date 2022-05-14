@@ -25,34 +25,45 @@
     display: flex;
     justify-content: space-between;
     margin-bottom: 20px;
-  }
 
-  .set-input {
-    width: 46%;
-    margin-bottom: 10px;
+    .input {
+      width: 46%;
+    }
   }
 
   .daterange-container {
-    .set-input {
-      width: 80%;
+    .input {
+      margin-bottom: 10px;
     }
   }
 
   .colors-values {
+      width: 50%;
+
     .input-field {
       display: flex;
       align-items: center;
+      justify-content: flex-end;
+      margin-bottom: 16px;
 
-      .input_set-color {
+      .input {
+        width: 83%;
         margin-right: 12px;
+
+        .error-text {
+          position: absolute;
+          top: 54px;
+        }
       }
 
       .btn_set-color {
-        margin-top: 11px;
+        margin-top: 21px;
       }
     }
 
     .checkbox-field {
+      padding-left: 40px;
+
       .checkbox__item {
         margin-bottom: 8px;
       }

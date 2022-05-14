@@ -6,14 +6,20 @@
   [value]="value"
   [placeholder]="placeholder"
   [step]="step"
-  (change)="changeValue.emit(input.value)"
+  (change)="onChange(input.value)"
   (focus)="onFocus()"
   (blur)="onBlur()"
   [min]="min"
   [max]="max"
   #input
 />
-<button *ngIf="input.value != ''" (click)="onDeleteValue()" class="input__btn">
+
+<button
+  *ngIf="input.value != ''"
+  type="button"
+  (click)="onDeleteValue()"
+  class="input__btn"
+>
   <svg class="close-icon">
     <use xlink:href="assets/sprite/symbol-defs.svg#close-icon"></use>
   </svg>

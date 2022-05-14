@@ -1,11 +1,12 @@
 @import './variables.less';
 
 input.ng-touched.ng-invalid {
-  border: solid @color-red-error 0.5px;
+  border: solid @color-red-error 0.5px !important;
   box-shadow: @shadow-error;
 }
 
 .input {
+  position: relative;
   font-family: 'Helvetica';
   font-weight: 400;
   display: flex;
