@@ -67,7 +67,6 @@ export class CardService {
   setPrice(value: IPrice) {
     this.newCar.priceMax = value.priceMax;
     this.newCar.priceMin = value.priceMin;
-    console.log(this.newCar);
   }
 
   setColors(colors: Array<string>) {

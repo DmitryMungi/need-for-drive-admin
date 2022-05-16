@@ -24,10 +24,6 @@ export class InputSelectComponent {
 
   constructor() {}
 
-  valueIsCange(value: string) {
-    // console.log(value);
-  }
-
   selectOpen() {
     this.isOpen = true;
   }
