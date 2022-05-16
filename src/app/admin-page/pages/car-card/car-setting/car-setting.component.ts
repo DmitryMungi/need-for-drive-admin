@@ -16,7 +16,8 @@ import {
 import { IChek } from "src/app/shared/components/checkbox/checkbox.component";
 import { DEFAULT_TYPE } from "../car-card.const";
 import { PRICE_RANGE_ERROR_TEXT, ERROR } from "src/app/shared/const/const";
-import { CardService, IPrice } from "../card.service";
+import { CardService } from "../card.service";
+import { IPrice } from "../car-card.interface";
 import { AlertService } from "src/app/shared/components/alert/alert.service";
 
 @Component({

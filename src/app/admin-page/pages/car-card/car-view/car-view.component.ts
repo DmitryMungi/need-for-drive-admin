@@ -8,7 +8,7 @@ import {
   EventEmitter,
 } from "@angular/core";
 import { CardService } from "../card.service";
-import { THUMBNAIL_DEF, IThumbnail } from "../card.service";
+import { THUMBNAIL_DEF, IThumbnail } from "../car-card.interface";
 import { DEFAULT_CAR_NAME, DEFAULT_TYPE } from "../car-card.const";
 import {
   ControlContainer,

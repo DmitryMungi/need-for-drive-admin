@@ -3,7 +3,7 @@ import { Injectable } from "@angular/core";
 import { catchError, map, Observable, tap, throwError } from "rxjs";
 import { AlertService } from "src/app/shared/components/alert/alert.service";
 import { environment } from "src/environments/environment";
-import { ICar } from "./card.service";
+import { ICar } from "./car-card.interface";
 import {
   ERROR,
   SUCCESS,
