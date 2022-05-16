@@ -4,6 +4,7 @@ import {
   Output,
   ViewChild,
   EventEmitter,
+  Input,
 } from "@angular/core";
 
 export const FILE_TYPES = [
@@ -29,6 +30,7 @@ export class InputFileComponent {
   @ViewChild("inputFile", { static: false }) inputFile!: ElementRef;
   @ViewChild("previev", { static: false }) preview!: ElementRef;
   @Output() getImage = new EventEmitter<File>();
+
   public prevText: string = TEXT_DEFAULT;
 
   public get textPreriew(): string {
@@ -70,5 +72,9 @@ export class InputFileComponent {
     }
 
     return "";
+  }
+
+  onReset() {
+    this.prevText = TEXT_DEFAULT;
   }
 }

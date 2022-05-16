@@ -14,15 +14,24 @@
 
   .side-bar__btn {
     position: absolute;
-    right: -20px;
-    top: 45%;
+    left: 14px;
+    top: 14px;
     display: none;
+    border: none;
+    z-index: 10;
   }
 
   .icon-img {
     width: 30px;
     height: 30px;
     stroke: @color-black;
+  }
+}
+
+.side-container.active {
+  .side-bar__btn {
+    left: auto;
+    right: 14px;
   }
 }
 
@@ -39,11 +48,10 @@
 @media (max-width: 750px) {
   .side-container {
     position: absolute;
-    top: 0;
-    bottom: 0;
+    top: 0px;
+    left: 0px;
     z-index: 10;
     min-width: auto;
-    width: 20px;
 
     .side-menu {
       display: none;
@@ -55,7 +63,7 @@
   }
 
   .side-container.active {
-    width: 240px;
+    width: 100%;
 
     .side-menu {
       display: block;

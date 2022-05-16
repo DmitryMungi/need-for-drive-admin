@@ -24,7 +24,8 @@ export class AppInterceptor implements HttpInterceptor {
     if (req.url.includes("logout")) {
       headers = this.getHeaders(environment.apiId, this.getBearerToken());
     } else {
-      headers = this.getHeaders(environment.apiId, this.getBasicToken());
+      headers = this.getHeaders(environment.apiId, this.getBasicToken()); // таким образом запрос на создание новой машины не уходил
+      // headers = this.getHeaders(environment.apiId, this.getBearerToken()); // таким не срабатывает авторизация
     }
 
     const authReq = req.clone({ headers });

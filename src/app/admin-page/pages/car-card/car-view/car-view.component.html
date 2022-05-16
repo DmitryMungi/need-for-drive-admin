@@ -3,13 +3,14 @@
     Изображение не загружено
   </div>
   <img class="view-img" alt="" #imgModel />
-  <h4 class="view-name text-helvetica color-navy">Название модели</h4>
-  <div class="view-type">Тип</div>
-  <app-input-file (getImage)="getImage($event)"></app-input-file>
+  <h4 class="view-name text-helvetica color-navy">{{ name }}</h4>
+  <div class="view-type">{{ type }}</div>
+  <app-input-file (getImage)="getImage($event)" #inputFile></app-input-file>
 </div>
-<app-progress [level]="pLevel"></app-progress>
+<app-progress [level]="procent"></app-progress>
 <app-textarea
   label="Описание"
   placeholder="Введите описание..."
   (changeValue)="textareaChange($event)"
+  #textarea
 ></app-textarea>

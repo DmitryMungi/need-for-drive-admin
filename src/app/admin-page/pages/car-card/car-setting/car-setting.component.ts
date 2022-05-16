@@ -1,4 +1,11 @@
-import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  OnInit,
+  Output,
+  ViewChild,
+} from "@angular/core";
 import {
   ControlContainer,
   FormControl,
@@ -7,7 +14,10 @@ import {
   Validators,
 } from "@angular/forms";
 import { IChek } from "src/app/shared/components/checkbox/checkbox.component";
+import { DEFAULT_TYPE } from "../car-card.const";
+import { PRICE_RANGE_ERROR_TEXT, ERROR } from "src/app/shared/const/const";
 import { CardService, IPrice } from "../card.service";
+import { AlertService } from "src/app/shared/components/alert/alert.service";
 
 @Component({
   selector: "app-car-setting",
@@ -19,19 +29,24 @@ import { CardService, IPrice } from "../card.service";
 })
 export class CarSettingComponent implements OnInit {
   @ViewChild("inputModel") inputModel!: ElementRef;
+  @Output() setProcent = new EventEmitter<void>();
+  @Output() onSave = new EventEmitter<void>();
+  @Output() deleteValues = new EventEmitter<void>();
+
   public settingForm = new FormGroup({
     model: new FormControl("", [Validators.required, Validators.minLength(3)]),
-    type: new FormControl("", Validators.required),
+    type: new FormControl("", [Validators.required, this.typeValidator]),
     number: new FormControl("", Validators.required),
-    colors: new FormControl([], Validators.required),
-    priceMin: new FormControl(0, Validators.required),
-    priceMax: new FormControl(0, Validators.required),
+    colors: new FormControl([], [Validators.required, this.colorValidator]),
+    priceMin: new FormControl(0, [Validators.required, this.priceValidator]),
+    priceMax: new FormControl(0, [Validators.required, this.priceValidator]),
   });
   public isOpen: boolean = false;
 
   constructor(
     private cardService: CardService,
-    private formModel: FormGroupDirective
+    public formModel: FormGroupDirective,
+    private alertService: AlertService
   ) {}
 
   public price: IPrice = {
@@ -44,33 +59,42 @@ export class CarSettingComponent implements OnInit {
   }
 
   public colorsList: string[] = [];
-  public activeColorList: string[] = [];
-
-  public controlIsValid(name: string): boolean {
-    return (
-      this.settingForm.controls[name].valid ||
-      this.settingForm.controls[name].untouched
-    );
-  }
+  public typeDefault: string = DEFAULT_TYPE;
 
   ngOnInit(): void {
     this.formModel.form.addControl("settings", this.settingForm);
-    console.log(this.settingForm.controls["model"]);
+  }
+
+  priceValidator(control: FormControl): { [s: string]: boolean } | null {
+    return control.value != 0 ? null : { priceMin: true };
+  }
+
+  colorValidator(control: FormControl): { [s: string]: boolean } | null {
+    return control.value != [] && control.value != "" ? null : { colors: true };
+  }
+
+  typeValidator(control: FormControl): { [s: string]: boolean } | null {
+    return control.value === DEFAULT_TYPE ? { type: true } : null;
   }
 
   addColor(value: string) {
     if (value != "" && value != null) {
       this.colorsList.push(value);
+      this.setProcent.emit();
     }
   }
 
   changeModel(value: string) {
     this.cardService.setCarName(value);
     this.settingForm.patchValue({ model: value });
+    this.setProcent.emit();
   }
 
   changeType(value: string) {
-    this.cardService.setCategoryValue(value);
+    if (value != DEFAULT_TYPE) {
+      this.cardService.setCategoryValue(value);
+      this.setProcent.emit();
+    }
   }
 
   typeOnFocus() {
@@ -85,42 +109,72 @@ export class CarSettingComponent implements OnInit {
 
   changeNumber(value: string) {
     this.cardService.setNumber(value);
+    this.settingForm.patchValue({ number: value });
+    this.setProcent.emit();
   }
 
   changePriceMin(value: string) {
     const price = Number(value);
-    if (price > 0) {
+    if (this.settingForm.controls["priceMin"].valid) {
       this.price.priceMin = price;
       this.setPriceValues();
+      this.setProcent.emit();
     }
   }
 
   changePriceMax(value: string) {
     const price = Number(value);
-    if (price > 0 && this.price.priceMin < price) {
+    if (this.settingForm.controls["priceMax"].valid) {
       this.price.priceMax = price;
       this.setPriceValues();
+      this.setProcent.emit();
     }
   }
 
   setPriceValues() {
-    if (
-      this.price.priceMax > this.price.priceMin &&
-      this.price.priceMax != 0 &&
-      this.price.priceMin != 0
-    ) {
-      this.cardService.setPrice(this.price);
+    if (this.price.priceMin != 0 && this.price.priceMax != 0) {
+      if (this.price.priceMax > this.price.priceMin) {
+        this.cardService.setPrice(this.price);
+      } else {
+        this.alertService.showAlert(PRICE_RANGE_ERROR_TEXT, ERROR);
+        this.settingForm.controls["priceMin"].patchValue(0);
+        this.price.priceMin = 0;
+        this.setProcent.emit();
+      }
     }
   }
 
   toggleCheckBox(value: IChek) {
-    !this.activeColorList.includes(value.name)
-      ? this.activeColorList.push(value.name)
+    !this.colorsList.includes(value.name)
+      ? this.colorsList.push(value.name)
       : this.removeColor(value.name);
   }
 
   removeColor(color: string) {
-    const index = this.activeColorList.indexOf(color);
-    this.activeColorList.splice(index, 1);
+    const index = this.colorsList.indexOf(color);
+    this.colorsList.splice(index, 1);
+    if (this.colorsList.length === 0) {
+      this.settingForm.controls["colors"].patchValue([]);
+      this.setProcent.emit();
+    }
+  }
+
+  saveNewCar() {
+    this.cardService.setColors(this.colorsList);
+    this.onSave.emit();
+  }
+
+  controlIsValid(name: string): boolean {
+    return (
+      this.settingForm.controls[name].valid ||
+      this.settingForm.controls[name].untouched
+    );
+  }
+
+  onDelete() {
+    this.formModel.onReset();
+    this.colorsList.length = 0;
+    this.cardService.resetNewCar();
+    this.deleteValues.emit();
   }
 }

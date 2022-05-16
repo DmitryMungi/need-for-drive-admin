@@ -28,17 +28,19 @@
 
     .input {
       width: 46%;
+      margin-bottom: 10px;
     }
   }
 
   .daterange-container {
     .input {
-      margin-bottom: 10px;
+      width: 100%;
     }
   }
 
   .colors-values {
       width: 50%;
+      position: relative;
 
     .input-field {
       display: flex;
@@ -56,13 +58,16 @@
         }
       }
 
-      .btn_set-color {
-        margin-top: 21px;
+      .btn-plus {
+        margin-top: 11px;
       }
     }
 
     .checkbox-field {
       padding-left: 40px;
+      position: absolute;
+      max-height: 200px;
+      overflow-y: auto;
 
       .checkbox__item {
         margin-bottom: 8px;
@@ -80,15 +85,37 @@
   }
 }
 
-@media (max-width: 520px){
-  .row {
-    flex-direction: column;
+@media (max-width: 1120px) {
+  .setting {
+    .row {
+      flex-direction: column;
 
-    .set-input {
-      width: 100%;
+      .input {
+        width: 100%;
+      }
+
+      .daterange-container {
+        .input {
+          width: 50%;
+        }
+      }
+
+      .colors-values {
+        width: 100%;
+
+        .input-field {
+          margin-bottom: 0;
+
+          .input {
+            width: 100%;
+          }
+        }
+      }
     }
   }
+}
 
+@media (max-width: 520px){
   .button-container {
     .btn:first-child {
       margin-bottom: 12px;

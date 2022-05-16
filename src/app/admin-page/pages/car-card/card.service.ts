@@ -41,8 +41,6 @@ export class CardService {
   public categoryList: string[] = [];
   public category: ICategory[] = [];
 
-  // public thumbnail: IThumbnail = THUMBNAIL_DEF;
-
   public newCar: ICar = {
     categoryId: {
       description: "",
@@ -57,6 +55,10 @@ export class CardService {
     priceMin: 0,
     thumbnail: THUMBNAIL_DEF,
   };
+
+  getCar(): ICar {
+    return this.newCar;
+  }
 
   getCategoryList(): string[] {
     return this.categoryList;
@@ -91,5 +93,27 @@ export class CardService {
   setPrice(value: IPrice) {
     this.newCar.priceMax = value.priceMax;
     this.newCar.priceMin = value.priceMin;
+    console.log(this.newCar);
+  }
+
+  setColors(colors: Array<string>) {
+    this.newCar.colors = colors;
+  }
+
+  resetNewCar() {
+    this.newCar = {
+      categoryId: {
+        description: "",
+        id: "",
+        name: "",
+      },
+      colors: [],
+      description: "",
+      name: "",
+      number: "",
+      priceMax: 0,
+      priceMin: 0,
+      thumbnail: THUMBNAIL_DEF,
+    };
   }
 }

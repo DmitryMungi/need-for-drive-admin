@@ -15,7 +15,7 @@
         />
         <app-button-close
           *ngIf="inputModel.value != ''"
-          (onClick)="settingForm.patchValue({ model: '' })"
+          (onClick)="changeModel('')"
         ></app-button-close>
         <div
           [hidden]="controlIsValid('model')"
@@ -36,7 +36,7 @@
         />
         <app-button-close
           *ngIf="inputNumber.value != ''"
-          (onClick)="settingForm.patchValue({ number: '' })"
+          (onClick)="changeNumber('')"
         ></app-button-close>
         <div
           [hidden]="controlIsValid('number')"
@@ -56,10 +56,17 @@
           (change)="changeType(selectType.value)"
           #selectType
         >
+          <option selected>{{ typeDefault }}</option>
           <option *ngFor="let item of categotyList">
             {{ item }}
           </option>
         </select>
+        <div
+          [hidden]="controlIsValid('type')"
+          class="error-text text-helvetica"
+        >
+          {{ typeDefault }}
+        </div>
       </div>
 
       <div class="colors-values">
@@ -85,7 +92,6 @@
               Добавьте цвет
             </div>
           </div>
-
           <button class="btn-plus btn_set-color"></button>
         </div>
         <div class="checkbox-field">
@@ -111,7 +117,7 @@
           <input
             formControlName="priceMin"
             class="input__field"
-            type="number "
+            type="number"
             min="0"
             step="10"
             name="price-min"
@@ -130,11 +136,10 @@
           <input
             formControlName="priceMax"
             class="input__field"
-            type="number "
-            min="0"
+            type="number"
             step="10"
             name="price-max"
-            (change)="changePriceMin(priceMax.value)"
+            (change)="changePriceMax(priceMax.value)"
             #priceMax
           />
           <div
@@ -150,10 +155,16 @@
 
   <div class="button-container">
     <div>
-      <button class="btn btn-primary btn-size-m">Сохранить</button>
+      <button
+        class="btn btn-primary btn-size-m"
+        (click)="saveNewCar()"
+        [disabled]="!formModel.valid"
+      >
+        Сохранить
+      </button>
       <button class="btn btn-grey btn-size-m">Отменить</button>
     </div>
 
-    <button class="btn btn-red btn-size-m">Удалить</button>
+    <button class="btn btn-red btn-size-m" (click)="onDelete()">Удалить</button>
   </div>
 </div>

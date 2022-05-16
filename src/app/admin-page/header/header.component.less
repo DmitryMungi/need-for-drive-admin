@@ -2,10 +2,13 @@
 @import '../../shared/common-styles/input.less';
 @import '../../shared/common-styles/text.less';
 
+:host {
+  position: relative;
+}
+
 .header {
   height: 67.5px;
   display: flex;
-  position: relative;
   box-shadow: @shadow-bottom;
 
   &__search {
@@ -98,11 +101,23 @@
   }
 }
 
+@media (max-width: 750px){
+  .header {
+    padding-left: 60px;
+  }
+}
+
+
 @media (max-width: 510px){
   .header {
 
     &__details{
       padding-right: 8px;
+
+      .details-img {
+        width: 32px;
+        margin-left: 10px;
+      }
 
       .details-user {
         height: 10px;
@@ -115,18 +130,6 @@
 
       .dropdown-item__text {
         display: none;
-      }
-    }
-  }
-}
-
-@media (max-width: 510px) {
-
-  .header {
-    &__details {
-      .details-img {
-        width: 32px;
-        margin-left: 10px;
       }
     }
   }

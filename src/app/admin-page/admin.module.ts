@@ -22,6 +22,7 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { ButtonCloseComponent } from "../shared/components/button-close/button-close.component";
 import { ButtonCloseModule } from "../shared/components/button-close/button-close.module";
 import { DropdownModule } from "../shared/components/dropdown/dropdown.module";
+import { AlertModule } from "../shared/components/alert/alert.module";
 
 @NgModule({
   declarations: [
@@ -50,6 +51,7 @@ import { DropdownModule } from "../shared/components/dropdown/dropdown.module";
     ReactiveFormsModule,
     ButtonCloseModule,
     DropdownModule,
+    AlertModule,
   ],
   exports: [AdminPageComponent],
 })
