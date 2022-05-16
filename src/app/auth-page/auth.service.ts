@@ -2,8 +2,9 @@ import { Injectable } from "@angular/core";
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { environment } from "src/environments/environment";
 import { catchError, Observable, Subject, tap, throwError } from "rxjs";
-import { tokenService } from "../shared/services/token.service";
+import { TokenService } from "../shared/services/token.service";
 import { IAuth, IAuthRes } from "./auth.interface";
+import { ERROR_RES_STATUS } from "../shared/const/const";
 
 @Injectable({
   providedIn: "root",
@@ -11,7 +12,7 @@ import { IAuth, IAuthRes } from "./auth.interface";
 export class AuthService {
   public error = new Subject<string>();
 
-  constructor(private http: HttpClient, private tokenService: tokenService) {}
+  constructor(private http: HttpClient, private tokenService: TokenService) {}
 
   public login(item: IAuth): Observable<IAuthRes> {
     return this.http
@@ -37,14 +38,14 @@ export class AuthService {
       })
       .pipe(
         tap((res) => this.tokenService.setToken(res)),
-        catchError((error) => throwError(error))
+        catchError((error) => this.handleError(error))
       );
   }
 
   private handleError(error: HttpErrorResponse): Observable<never> {
     const status = error.status;
 
-    if (status === 401) {
+    if (status === ERROR_RES_STATUS) {
       this.error.next("Пользователь не найден");
     }
 

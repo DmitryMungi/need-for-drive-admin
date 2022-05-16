@@ -10,6 +10,7 @@ import { Injectable } from "@angular/core";
 import { catchError, Observable, switchMap, take, throwError } from "rxjs";
 import { environment } from "src/environments/environment";
 import { AuthService } from "./auth-page/auth.service";
+import { ERROR_RES_STATUS } from "./shared/const/const";
 
 @Injectable()
 export class AppInterceptor implements HttpInterceptor {
@@ -19,19 +20,16 @@ export class AppInterceptor implements HttpInterceptor {
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    let headers;
-
-    if (req.url.includes("logout")) {
-      headers = this.getHeaders(environment.apiId, this.getBearerToken());
-    } else {
-      headers = this.getHeaders(environment.apiId, this.getBasicToken());
-    }
-
-    const authReq = req.clone({ headers });
+    const authReq = req.clone({
+      headers: this.getHeaders(
+        environment.apiId,
+        req.url.includes("login") ? this.getBasicToken() : this.getBearerToken()
+      ),
+    });
 
     return next.handle(authReq).pipe(
       catchError((error: HttpErrorResponse) => {
-        if (error.status === 401 && !req.url.includes("login")) {
+        if (error.status === ERROR_RES_STATUS && !req.url.includes("login")) {
           return this.authService.refresh().pipe(
             take(1),
             switchMap(() => next.handle(authReq))

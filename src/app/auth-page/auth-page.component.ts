@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
-import { tap } from "rxjs";
+import { distinctUntilChanged, tap } from "rxjs";
 import { IAuth } from "./auth.interface";
 import { AuthService } from "./auth.service";
 import { UntilDestroy } from "@ngneat/until-destroy";
@@ -40,7 +40,10 @@ export class AuthPageComponent implements OnInit {
 
     this.authService
       .login(authData)
-      .pipe(tap(() => this.navigateToAccount()))
+      .pipe(
+        tap(() => this.navigateToAccount()),
+        distinctUntilChanged()
+      )
       .subscribe();
   }
 }

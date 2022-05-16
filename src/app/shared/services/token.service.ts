@@ -4,7 +4,7 @@ import { IAuthRes } from "src/app/auth-page/auth.interface";
 @Injectable({
   providedIn: "root",
 })
-export class tokenService {
+export class TokenService {
   public get token(): string | null {
     return localStorage.getItem("token");
   }
@@ -21,7 +21,7 @@ export class tokenService {
       localStorage.setItem("refresh-token", newToken.refreshToken);
       localStorage.setItem("expires", newToken.expiresIn.toString());
     } else {
-      this.removeToken();
+      this.clearAuthParams();
     }
   }
 
@@ -46,10 +46,10 @@ export class tokenService {
   }
 
   public hasToken(): boolean {
-    return this.token != null ? true : false;
+    return this.token != null;
   }
 
-  private removeToken() {
+  private clearAuthParams() {
     localStorage.removeItem("token");
     localStorage.removeItem("refresh-token");
     localStorage.removeItem("expires");
