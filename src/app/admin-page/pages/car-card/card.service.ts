@@ -29,6 +29,10 @@ export interface ICar {
   thumbnail: IThumbnail;
 }
 
+export interface ICarRes extends ICar {
+  id: string;
+}
+
 export const THUMBNAIL_DEF: IThumbnail = {
   mimetype: "",
   originalname: "",
@@ -55,6 +59,8 @@ export class CardService {
     priceMin: 0,
     thumbnail: THUMBNAIL_DEF,
   };
+
+  public newCaeRes: ICarRes = <ICarRes>{};
 
   getCar(): ICar {
     return this.newCar;
@@ -98,6 +104,10 @@ export class CardService {
 
   setColors(colors: Array<string>) {
     this.newCar.colors = colors;
+  }
+
+  setNewCarRes(car: ICarRes) {
+    this.newCaeRes = car;
   }
 
   resetNewCar() {

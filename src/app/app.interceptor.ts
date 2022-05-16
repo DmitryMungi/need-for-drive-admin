@@ -21,11 +21,10 @@ export class AppInterceptor implements HttpInterceptor {
   ): Observable<HttpEvent<any>> {
     let headers;
 
-    if (req.url.includes("logout")) {
-      headers = this.getHeaders(environment.apiId, this.getBearerToken());
+    if (req.url.includes("login")) {
+      headers = this.getHeaders(environment.apiId, this.getBasicToken());
     } else {
-      headers = this.getHeaders(environment.apiId, this.getBasicToken()); // таким образом запрос на создание новой машины не уходил
-      // headers = this.getHeaders(environment.apiId, this.getBearerToken()); // таким не срабатывает авторизация
+      headers = this.getHeaders(environment.apiId, this.getBearerToken());
     }
 
     const authReq = req.clone({ headers });

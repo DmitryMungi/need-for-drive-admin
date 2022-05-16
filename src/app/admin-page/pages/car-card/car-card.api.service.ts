@@ -1,8 +1,15 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { map, Observable } from "rxjs";
+import { catchError, map, Observable, tap, throwError } from "rxjs";
+import { AlertService } from "src/app/shared/components/alert/alert.service";
 import { environment } from "src/environments/environment";
 import { ICar } from "./card.service";
+import {
+  ERROR,
+  SUCCESS,
+  SAVE_NEW_CAR_TEXT_SUCCESS,
+  SAVE_CAR_ERROR_TEXT,
+} from "src/app/shared/const/const";
 
 export interface ICategory {
   description: string;
@@ -16,10 +23,18 @@ export interface IRes<T> {
 
 @Injectable({ providedIn: "root" })
 export class CardApiService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private alertService: AlertService) {}
 
   setNewCar(car: ICar): Observable<any> {
-    return this.http.post(`${environment.apiUrl}/db/car/`, car);
+    return this.http.post(`${environment.apiUrl}/db/car/`, car).pipe(
+      tap(() =>
+        this.alertService.showAlert(SAVE_NEW_CAR_TEXT_SUCCESS, SUCCESS)
+      ),
+      catchError((err) => {
+        this.alertService.showAlert(SAVE_CAR_ERROR_TEXT, ERROR);
+        return throwError(err);
+      })
+    );
   }
 
   getCategory(): Observable<ICategory[]> {

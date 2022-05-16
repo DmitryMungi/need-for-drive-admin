@@ -1,11 +1,5 @@
-import {
-  Component,
-  EventEmitter,
-  OnInit,
-  Output,
-  ViewChild,
-} from "@angular/core";
-import { tap } from "rxjs";
+import { Component, OnInit, ViewChild } from "@angular/core";
+import { map, tap } from "rxjs";
 import { CardApiService, ICategory } from "./car-card.api.service";
 import { CardService, ICar, IThumbnail } from "./card.service";
 import { UntilDestroy } from "@ngneat/until-destroy";
@@ -42,7 +36,11 @@ export class CarCardComponent implements OnInit {
   sendNewCar() {
     this.cardApiService
       .setNewCar(this.newCar)
-      .subscribe((res) => console.log(res));
+      .pipe(
+        map((res) => res.data),
+        tap((res) => this.cardService.setNewCarRes(res))
+      )
+      .subscribe();
   }
 
   createList(list: ICategory[]) {
