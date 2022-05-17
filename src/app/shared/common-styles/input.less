@@ -1,0 +1,33 @@
+@import './variables.less';
+
+input.ng-touched.ng-invalid {
+  border: solid @color-red-error 0.5px;
+  box-shadow: @shadow-error;
+}
+
+.input {
+  font-family: 'Helvetica';
+  font-weight: 400;
+  display: flex;
+  flex-direction: column;
+
+  &__label {
+    margin-bottom: 8.5px;
+    font-size: 10.5px;
+    line-height: 120%;
+    color: @color-black-10;
+  }
+
+  &__field {
+    font-size: 11px;
+    color: @color-navy-blue;
+    padding: 8px 11.5px 8.5px;
+    border-radius: 3px;
+    border: 0.5px solid @color-blye-10;
+    outline: none;
+
+    &:focus {
+      outline: 1px solid @color-blye-10;
+    }
+  }
+}
