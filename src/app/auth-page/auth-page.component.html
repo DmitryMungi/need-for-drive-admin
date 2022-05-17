@@ -1,0 +1,55 @@
+<div>
+  <app-logo></app-logo>
+  <div class="auth-container">
+    <h3 class="color-navy text-helvetica auth-title">Вход</h3>
+    <form class="auth-form">
+      <div class="input auth-input">
+        <label class="input__label" for="userMail">Почта</label>
+        <input
+          class="input__field"
+          [(ngModel)]="userMail"
+          name="mail"
+          type="text"
+          id="userMail"
+          required
+          #mail="ngModel"
+        />
+        <div
+          [hidden]="mail.valid || mail.untouched"
+          class="error-text text-helvetica"
+        >
+          Введите email
+        </div>
+      </div>
+      <div class="input auth-input">
+        <label class="input__label" for="userPass">Пароль</label>
+        <input
+          class="input__field"
+          [(ngModel)]="password"
+          type="password"
+          name="pass"
+          id="userPass"
+          required
+          #pass="ngModel"
+        />
+        <div [hidden]="pass.valid || pass.untouched" class="error-text">
+          Введите пароль
+        </div>
+        <div *ngIf="error | async as error" class="error-text text-helvetica">
+          {{ error }}
+        </div>
+      </div>
+
+      <div class="auth-form__action">
+        <a class="action-link text-helvetica">Запросить доступ</a>
+        <button
+          [disabled]="mail.invalid || pass.invalid"
+          (click)="onSubmit()"
+          class="btn btn-primary btn-size-m"
+        >
+          Войти
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

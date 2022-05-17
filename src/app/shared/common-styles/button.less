@@ -1,0 +1,42 @@
+@import './variables.less';
+
+.btn {
+  border: none;
+  padding: 8px;
+  border-radius: 4px;
+  background: none;
+  font-family: 'Helvetica';
+  font-weight: 400;
+  font-size: 11.5px;
+  line-height: 120%;
+  cursor: pointer;
+
+  &:disabled {
+    background: @color-grey-10;
+    cursor: default;
+    &:hover {
+      background: @color-grey-10;
+    }
+
+    &:active {
+      background: @color-grey-10;
+    }
+  }
+}
+
+.btn-primary {
+  background: @color-blue;
+  color: @color-white;
+
+  &:hover {
+    background: darken(@color-blue, 10%);
+  }
+
+  &:active {
+    background: darken(@color-blue, 20%);
+  }
+}
+
+.btn-size-m {
+  width: 110px;
+}
