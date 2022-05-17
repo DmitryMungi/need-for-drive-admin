@@ -1,1 +1,47 @@
 @import '../../../shared/common-styles/text.less';
+@import '../../../shared/common-styles/button.less';
+@import '../../../shared/common-styles/variables.less';
+@import '../../../shared/common-styles/input.less';
+
+.car-list_title {
+  margin-bottom: 30px;
+}
+
+.table_component {
+  width: 100%;
+  padding: 15px 20px 20px;
+  background: @color-white;
+  border-radius: 9px;
+  box-shadow: @shadow;
+
+  .table-filters {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 14px;
+
+    .wrapp-input {
+      display: flex;
+      align-items: center;
+    }
+  }
+
+  .table {
+    width: 100%;
+
+    .table__heading {
+
+    }
+
+    td {
+      padding: 11px 0;
+      text-align: center;
+    }
+  }
+}
+
+
+
+.btn-red, .input {
+  margin-right: 15px;
+}
