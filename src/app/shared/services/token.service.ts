@@ -21,7 +21,7 @@ export class TokenService {
       localStorage.setItem("refresh-token", newToken.refreshToken);
       localStorage.setItem("expires", newToken.expiresIn.toString());
     } else {
-      this.removeToken();
+      this.clearAuthParams();
     }
   }
 
@@ -46,10 +46,10 @@ export class TokenService {
   }
 
   public hasToken(): boolean {
-    return this.token != null ? true : false;
+    return this.token != null;
   }
 
-  private removeToken() {
+  private clearAuthParams() {
     localStorage.removeItem("token");
     localStorage.removeItem("refresh-token");
     localStorage.removeItem("expires");
