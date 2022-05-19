@@ -1,8 +1,9 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { map, tap } from "rxjs";
-import { CardApiService, ICategory } from "./car-card.api.service";
+import { CardApiService } from "./car-card.api.service";
 import { CardService } from "./card.service";
 import { ICar, IThumbnail } from "./car-card.interface";
+import { ICategory } from "./car-card.interface";
 import { UntilDestroy } from "@ngneat/until-destroy";
 import { FormGroup } from "@angular/forms";
 import { PROCENT, PROCENT_POINT, START_COUNT } from "./car-card.const";

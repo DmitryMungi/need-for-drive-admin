@@ -10,16 +10,7 @@ import {
   SAVE_NEW_CAR_TEXT_SUCCESS,
   SAVE_CAR_ERROR_TEXT,
 } from "src/app/shared/const/const";
-
-export interface ICategory {
-  description: string;
-  id: string;
-  name: string;
-}
-
-export interface IRes<T> {
-  data: Array<T>;
-}
+import { ICategory, IRes } from "src/app/shared/shared.interface";
 
 @Injectable({ providedIn: "root" })
 export class CardApiService {

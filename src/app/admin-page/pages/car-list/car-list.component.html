@@ -4,19 +4,26 @@
   <div class="table-filters">
     <div class="wrapp-input">
       <div class="input">
-        <select class="input__field" placeholder="field">
-          <option>option 1</option>
-          <option>option 2</option>
-          <option>option 3</option>
+        <select
+          class="input__field"
+          (change)="selectChange(typeSelect.value)"
+          #typeSelect
+        >
+          <option *ngFor="let item of category">
+            {{ item.name }}
+          </option>
         </select>
       </div>
       <div class="input">
-        <select class="input__field" placeholder="field">
-          <option>option 1</option>
-          <option>option 2</option>
-          <option>option 3</option>
-        </select>
+        <input
+          class="input__field"
+          (change)="applyParam({ name: inputSearch.value })"
+          type="text"
+          placeholder="Поиск по имени"
+          #inputSearch
+        />
       </div>
+      <button (click)="searchChange()">test</button>
       <div class="input">
         <select class="input__field" placeholder="field">
           <option>option 1</option>
@@ -26,23 +33,70 @@
       </div>
     </div>
     <div class="wrappp-btn">
-      <button class="btn btn-red">Сбросить</button>
-      <button class="btn btn-primary">Применить</button>
+      <button class="btn btn-red" (click)="clearParams()">Сбросить</button>
+      <button class="btn btn-primary" (click)="getCars()">Применить</button>
     </div>
   </div>
 
   <table class="table">
     <thead class="table__heading">
       <tr>
-        <td>heading</td>
-        <td>heading</td>
-        <td>heading</td>
-        <td>heading</td>
-        <td>heading</td>
-        <td>heading</td>
-        <td>heading</td>
+        <td>Название</td>
+        <td>Категория</td>
+        <td>Номер</td>
+        <td>Описание</td>
+        <td>Минимальная цена</td>
+        <td>Мфксимальная цена</td>
+        <td>Доступные цвета</td>
         <td>heading</td>
       </tr>
     </thead>
+    <tbody *ngIf="cars$ | async as cars">
+      <tr *ngFor="let car of cars">
+        <td>
+          <span *ngIf="car.name; else noname">
+            {{ car.name }}
+          </span>
+          <ng-template #noname> Неизвестно </ng-template>
+        </td>
+        <td>
+          <span *ngIf="car.categoryId && car.categoryId.name; else nocategory">
+            {{ car.categoryId.name }}
+          </span>
+          <ng-template #nocategory> Неизвестно </ng-template>
+        </td>
+        <td>
+          <span *ngIf="car.number; else nonumber">
+            {{ car.number }}
+          </span>
+          <ng-template #nonumber> Неизвестно </ng-template>
+        </td>
+        <td>
+          <span *ngIf="car.description; else nodesc">
+            {{ car.description }}
+          </span>
+          <ng-template #nodesc> Неизвестно </ng-template>
+        </td>
+        <td>
+          <span *ngIf="car.priceMin; else noPriceMin"> {{ car.priceMin }}</span>
+          <ng-template #noPriceMin> Неизвестно </ng-template>
+        </td>
+        <td>
+          <span *ngIf="car.priceMax; else noPriceMax">
+            {{ car.priceMax }}
+          </span>
+          <ng-template #noPriceMax> Неизвестно </ng-template>
+        </td>
+        <td>
+          <span *ngIf="car.colors; else nocolors">
+            {{ car.colors }}
+          </span>
+          <ng-template #nocolors> Неизвестно </ng-template>
+        </td>
+      </tr>
+    </tbody>
+    <tfoot>
+      v;jnvbtjrv;rtnvw cn;ejnvrwnv opvn[oeinrv'v [jfoienvnv]]
+    </tfoot>
   </table>
 </div>
