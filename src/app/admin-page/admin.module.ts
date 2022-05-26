@@ -23,6 +23,7 @@ import { ButtonCloseComponent } from "../shared/components/button-close/button-c
 import { ButtonCloseModule } from "../shared/components/button-close/button-close.module";
 import { DropdownModule } from "../shared/components/dropdown/dropdown.module";
 import { AlertModule } from "../shared/components/alert/alert.module";
+import { PaginatorModule } from "../shared/components/paginator/paginator.module";
 
 @NgModule({
   declarations: [
@@ -52,6 +53,7 @@ import { AlertModule } from "../shared/components/alert/alert.module";
     ButtonCloseModule,
     DropdownModule,
     AlertModule,
+    PaginatorModule,
   ],
   exports: [AdminPageComponent],
 })

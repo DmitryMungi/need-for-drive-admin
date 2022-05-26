@@ -9,6 +9,7 @@
           (change)="selectChange(typeSelect.value)"
           #typeSelect
         >
+          <option>Не выбранно</option>
           <option *ngFor="let item of category">
             {{ item.name }}
           </option>
@@ -23,14 +24,6 @@
           #inputSearch
         />
       </div>
-      <button (click)="searchChange()">test</button>
-      <div class="input">
-        <select class="input__field" placeholder="field">
-          <option>option 1</option>
-          <option>option 2</option>
-          <option>option 3</option>
-        </select>
-      </div>
     </div>
     <div class="wrappp-btn">
       <button class="btn btn-red" (click)="clearParams()">Сбросить</button>
@@ -41,53 +34,52 @@
   <table class="table">
     <thead class="table__heading">
       <tr>
-        <td>Название</td>
-        <td>Категория</td>
-        <td>Номер</td>
-        <td>Описание</td>
-        <td>Минимальная цена</td>
-        <td>Мфксимальная цена</td>
-        <td>Доступные цвета</td>
-        <td>heading</td>
+        <th>Название</th>
+        <th>Категория</th>
+        <th>Номер</th>
+        <th>Описание</th>
+        <th>Минимальная цена</th>
+        <th>Мфксимальная цена</th>
+        <th>Доступные цвета</th>
       </tr>
     </thead>
-    <tbody *ngIf="cars$ | async as cars">
+    <tbody class="table__body" *ngIf="cars$ | async as cars">
       <tr *ngFor="let car of cars">
-        <td>
+        <td class="table__cell">
           <span *ngIf="car.name; else noname">
             {{ car.name }}
           </span>
           <ng-template #noname> Неизвестно </ng-template>
         </td>
-        <td>
+        <td class="table__cell">
           <span *ngIf="car.categoryId && car.categoryId.name; else nocategory">
             {{ car.categoryId.name }}
           </span>
           <ng-template #nocategory> Неизвестно </ng-template>
         </td>
-        <td>
+        <td class="table__cell">
           <span *ngIf="car.number; else nonumber">
             {{ car.number }}
           </span>
           <ng-template #nonumber> Неизвестно </ng-template>
         </td>
-        <td>
+        <td class="table__cell">
           <span *ngIf="car.description; else nodesc">
             {{ car.description }}
           </span>
           <ng-template #nodesc> Неизвестно </ng-template>
         </td>
-        <td>
+        <td class="table__cell">
           <span *ngIf="car.priceMin; else noPriceMin"> {{ car.priceMin }}</span>
           <ng-template #noPriceMin> Неизвестно </ng-template>
         </td>
-        <td>
+        <td class="table__cell">
           <span *ngIf="car.priceMax; else noPriceMax">
             {{ car.priceMax }}
           </span>
           <ng-template #noPriceMax> Неизвестно </ng-template>
         </td>
-        <td>
+        <td class="table__cell">
           <span *ngIf="car.colors; else nocolors">
             {{ car.colors }}
           </span>
@@ -95,8 +87,9 @@
         </td>
       </tr>
     </tbody>
-    <tfoot>
-      v;jnvbtjrv;rtnvw cn;ejnvrwnv opvn[oeinrv'v [jfoienvnv]]
-    </tfoot>
   </table>
+  <app-paginator
+    [totalPages]="numberOfPages"
+    (changePage)="changePage($event)"
+  ></app-paginator>
 </div>

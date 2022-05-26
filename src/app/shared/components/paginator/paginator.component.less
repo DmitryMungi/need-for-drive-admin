@@ -1,0 +1,39 @@
+@import '../../../shared/common-styles/variables.less';
+
+:host {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.paginator__button {
+  margin: 2px;
+  border-radius: 50%;
+  border: none;
+  min-width: 20px;
+  min-height: 20px;
+  font-size: 15px;
+  color: @color-blue;
+  background-color: @color-white;
+  cursor: pointer;
+}
+
+.paginator__button-step {
+  font-weight: bold;
+  font-size: 12px;
+}
+
+.curent-page {
+  display: inherit;
+  align-items: center;
+  justify-content: center;
+  color: @color-white;
+  background-color: @color-blue;
+  cursor: default;
+}
+
+.paginator__points {
+  font-size: 24px;
+  color: @color-blue;
+}

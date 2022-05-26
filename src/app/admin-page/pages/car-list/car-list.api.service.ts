@@ -22,7 +22,6 @@ export class CarListApiService {
         params,
       })
       .pipe(
-        tap((res) => console.log(res)),
         tap((res) => this.carListService.setTotalCars(res.count)),
         map((res) => res.data)
       );
