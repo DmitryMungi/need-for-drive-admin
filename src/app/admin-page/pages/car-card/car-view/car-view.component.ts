@@ -29,7 +29,7 @@ import { TextareaComponent } from "src/app/shared/components/textarea/textarea.c
   ],
 })
 export class CarViewComponent implements OnInit {
-  @ViewChild("imgModel", { static: false }) imgModel?: ElementRef;
+  @ViewChild("imgModel", { static: false }) imgModel!: ElementRef;
   @ViewChild("inputFile") inputFile!: InputFileComponent;
   @ViewChild("textarea") textarea!: TextareaComponent;
   @Input() procent: number = 0;
@@ -57,7 +57,7 @@ export class CarViewComponent implements OnInit {
 
   public get type(): string {
     const type = this.cardService.getCar().categoryId.name;
-    return type === "" ? DEFAULT_TYPE : type;
+    return type != "" ? type : DEFAULT_TYPE;
   }
 
   getImage(value: File) {
@@ -76,7 +76,7 @@ export class CarViewComponent implements OnInit {
       this.setProcent.emit();
     };
 
-    if (this.imgModel != undefined)
+    if (Boolean(this.imgModel))
       this.imgModel.nativeElement.src = URL.createObjectURL(value);
   }
 
@@ -86,7 +86,7 @@ export class CarViewComponent implements OnInit {
     this.setProcent.emit();
   }
 
-  deleteValues() {
+  cancelValues() {
     if (this.imgModel != undefined) {
       this.imgModel.nativeElement.src = "";
     }

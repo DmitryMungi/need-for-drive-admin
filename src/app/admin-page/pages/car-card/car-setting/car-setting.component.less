@@ -7,7 +7,7 @@
   padding: 20px;
   background-color: @color-white;
   border-radius: 9px;
-  width: 100%;
+  width: 68%;
   box-shadow: @shadow;
 
   .setting__title {
@@ -33,8 +33,9 @@
   }
 
   .daterange-container {
+    width: 100%;
     .input {
-      width: 100%;
+      margin-bottom: 40px;
     }
   }
 
@@ -85,6 +86,12 @@
   }
 }
 
+@media (max-width: 1170px) {
+  :host {
+    width: 58%;
+  }
+}
+
 @media (max-width: 1120px) {
   .setting {
     .row {
@@ -92,12 +99,6 @@
 
       .input {
         width: 100%;
-      }
-
-      .daterange-container {
-        .input {
-          width: 50%;
-        }
       }
 
       .colors-values {
@@ -112,6 +113,12 @@
         }
       }
     }
+  }
+}
+
+@media (max-width: 1020px ) {
+  :host {
+    width: 100%;
   }
 }
 

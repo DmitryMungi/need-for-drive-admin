@@ -6,11 +6,10 @@
   [value]="value"
   [placeholder]="placeholder"
   [step]="step"
-  (change)="onChange(input.value)"
-  (focus)="onFocus()"
-  (blur)="onBlur()"
+  (change)="writeValue(input.value)"
   [min]="min"
   [max]="max"
+  [formControl]="inputControl"
   #input
 />
 
@@ -24,3 +23,6 @@
     <use xlink:href="assets/sprite/symbol-defs.svg#close-icon"></use>
   </svg>
 </button>
+<div [hidden]="controlIsValid()" class="error-text">
+  {{ errorText }}
+</div>

@@ -4,7 +4,7 @@
     (change)="returnImageValue()"
     type="file"
     id="input-file"
-    accept=".jpg, .jpeg, .png"
+    [accept]="accept"
     #inputFile
   />
 </div>

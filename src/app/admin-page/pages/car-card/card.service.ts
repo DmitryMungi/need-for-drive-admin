@@ -1,34 +1,19 @@
 import { Injectable } from "@angular/core";
 import {
   ICar,
-  ICategory,
   ICarRes,
   IThumbnail,
-  THUMBNAIL_DEF,
   IPrice,
+  CarModel,
 } from "./car-card.interface";
+import { ICategory } from "src/app/shared/shared.interface";
 
 @Injectable({ providedIn: "root" })
 export class CardService {
   public categoryList: string[] = [];
   public category: ICategory[] = [];
-
-  public newCar: ICar = {
-    categoryId: {
-      description: "",
-      id: "",
-      name: "",
-    },
-    colors: [],
-    description: "",
-    name: "",
-    number: "",
-    priceMax: 0,
-    priceMin: 0,
-    thumbnail: THUMBNAIL_DEF,
-  };
-
-  public newCaeRes: ICarRes = <ICarRes>{};
+  public newCar = new CarModel(<ICar>{});
+  public newCarRes: ICarRes = <ICarRes>{};
 
   getCar(): ICar {
     return this.newCar;
@@ -74,23 +59,10 @@ export class CardService {
   }
 
   setNewCarRes(car: ICarRes) {
-    this.newCaeRes = car;
+    this.newCarRes = car;
   }
 
   resetNewCar() {
-    this.newCar = {
-      categoryId: {
-        description: "",
-        id: "",
-        name: "",
-      },
-      colors: [],
-      description: "",
-      name: "",
-      number: "",
-      priceMax: 0,
-      priceMin: 0,
-      thumbnail: THUMBNAIL_DEF,
-    };
+    this.newCar = new CarModel(<ICar>{});
   }
 }

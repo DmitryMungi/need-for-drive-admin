@@ -1,12 +1,14 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
-import { map, tap } from "rxjs";
-import { CardApiService, ICategory } from "./car-card.api.service";
+import { map, take, tap } from "rxjs";
+import { CardApiService } from "./car-card.api.service";
 import { CardService } from "./card.service";
 import { ICar, IThumbnail } from "./car-card.interface";
 import { UntilDestroy } from "@ngneat/until-destroy";
 import { FormGroup } from "@angular/forms";
 import { PROCENT, PROCENT_POINT, START_COUNT } from "./car-card.const";
 import { CarViewComponent } from "./car-view/car-view.component";
+import { ICategory } from "src/app/shared/shared.interface";
+import { CarSettingComponent } from "./car-setting/car-setting.component";
 
 @UntilDestroy({ checkProperties: true })
 @Component({
@@ -16,6 +18,7 @@ import { CarViewComponent } from "./car-view/car-view.component";
 })
 export class CarCardComponent implements OnInit {
   @ViewChild("carView") carView!: CarViewComponent;
+  @ViewChild("carSetting") carSetting!: CarSettingComponent;
   public formModel: FormGroup = new FormGroup({});
 
   constructor(
@@ -35,37 +38,52 @@ export class CarCardComponent implements OnInit {
   }
 
   sendNewCar() {
-    this.cardApiService
-      .setNewCar(this.newCar)
-      .pipe(
-        map((res) => res.data),
-        tap((res) => this.cardService.setNewCarRes(res))
-      )
-      .subscribe();
+    const newCar = this.cardService.newCar;
+    const newCarRes = this.cardService.newCarRes;
+
+    if (Object.keys(newCarRes).length == 0) {
+      this.cardApiService
+        .setNewCar(this.newCar)
+        .pipe(
+          take(1),
+          map((res) => res.data),
+          tap((res) => this.cardService.setNewCarRes(res))
+        )
+        .subscribe();
+    } else {
+      this.cardApiService
+        .changeNewCar(newCarRes.id, newCar)
+        .pipe(
+          take(1),
+          map((res) => res.data),
+          tap((res) => this.cardService.setNewCarRes(res))
+        )
+        .subscribe();
+    }
   }
 
   createList(list: ICategory[]) {
-    for (let i = 0; i < list.length; i++) {
-      this.categoryList?.push(list[i].name);
-    }
-
+    this.categoryList = this.categoryList.concat(list.map((x) => x.name));
     this.cardService.setCatugoryList(this.categoryList, list);
   }
 
   setTotalProcent() {
     const setting = this.formModel.controls["settings"].value;
     const view = this.formModel.controls["view"].value;
-    let totalCount = START_COUNT;
+    let settingCount = START_COUNT;
+    let viewCount = START_COUNT;
+
     const length = Object.keys(setting).length + Object.keys(view).length;
 
-    for (let key in setting) {
-      totalCount = totalCount + this.onInputFieldProcent(setting[key]);
-    }
+    settingCount = Object.values(setting).reduce((total: number, key: any) => {
+      return total + this.onInputFieldProcent(key);
+    }, 0);
 
-    for (let key in view) {
-      totalCount = totalCount + this.onInputFieldProcent(view[key]);
-    }
+    viewCount = Object.values(view).reduce((total: number, key: any) => {
+      return total + this.onInputFieldProcent(key);
+    }, 0);
 
+    const totalCount = settingCount + viewCount;
     this.totalProcent = PROCENT - (PROCENT / length) * totalCount;
   }
 
@@ -90,8 +108,14 @@ export class CarCardComponent implements OnInit {
     return total;
   }
 
-  deleteValues() {
-    this.carView.deleteValues();
+  cancelValues() {
+    this.carView.cancelValues();
     this.setTotalProcent();
+  }
+
+  deleteNewCar(id: string) {
+    this.cardApiService.deleteNewCar(id).subscribe();
+    this.cancelValues();
+    this.carSetting.onCancel();
   }
 }

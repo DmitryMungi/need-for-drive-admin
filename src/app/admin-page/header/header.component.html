@@ -1,45 +1,41 @@
 <header class="header">
-  <div class="header__search">
-    <label class="search-label" for="search">
-      <span class="icon">
-        <svg class="icon__search">
+  <div class="header-search">
+    <label class="header-search__label search" for="search">
+      <span class="header-search__icon search__icon">
+        <svg class="search__icon_img">
           <use xlink:href="assets/sprite/symbol-defs.svg#search-icon"></use>
         </svg>
       </span>
       <input
-        class="input-search"
+        class="header-search__input input-search"
         name="search"
         placeholder="Поиск..."
         type="text"
       />
     </label>
   </div>
-  <div class="header__natification">
+  <div class="header__notification">
     <img
       class="notifications-img"
       src="../../../assets/img/notifications.svg"
       alt="notifications"
     />
   </div>
-  <div class="header__details text-helvetica" (click)="openDetails()" #details>
+  <div class="header-details text-helvetica" (click)="openDetails()" #details>
     <img
-      class="details-img"
+      class="header-details__img"
       src="../../../assets/img/user-avatar.jpg"
       alt="avatar"
     />
-    <span class="details-user">
+    <span class="header-details__user">
       <span class="details-user__text">Admin</span>
     </span>
 
-    <div class="details-dropdown">
-      <div (click)="inOut()" class="dropdown-item">
+    <div class="header-details__dropdown">
+      <div (click)="logOut()" class="dropdown-item">
         <span class="dropdown-item__text"> Выход </span>
       </div>
     </div>
   </div>
 </header>
-<app-alert
-  *ngIf="isAlert"
-  [text]="alertText"
-  [status]="alertStatus"
-></app-alert>
+<app-alert></app-alert>

@@ -3,50 +3,24 @@
 <div class="setting">
   <div class="setting__container" formGroupName="settings">
     <div class="row">
-      <div class="input">
-        <label class="input__label" for="model">Модель автомобиля</label>
-        <input
-          formControlName="model"
-          class="input__field"
-          type="text"
-          name="model"
-          (change)="changeModel(inputModel.value)"
-          #inputModel
-        />
-        <app-button-close
-          *ngIf="inputModel.value != ''"
-          (onClick)="changeModel('')"
-        ></app-button-close>
-        <div
-          [hidden]="controlIsValid('model')"
-          class="error-text text-helvetica"
-        >
-          Введите название модели
-        </div>
-      </div>
-      <div class="input">
-        <label class="input__label" for="number">Номер автомобиля</label>
-        <input
-          formControlName="number"
-          class="input__field"
-          type="text"
-          name="number"
-          (change)="changeNumber(inputNumber.value)"
-          #inputNumber
-        />
-        <app-button-close
-          *ngIf="inputNumber.value != ''"
-          (onClick)="changeNumber('')"
-        ></app-button-close>
-        <div
-          [hidden]="controlIsValid('number')"
-          class="error-text text-helvetica"
-        >
-          Введите номер автомобиля
-        </div>
-      </div>
-    </div>
+      <app-input
+        class="input"
+        label="Модель автомобиля"
+        name="model"
+        formControlName="model"
+        (changeValue)="changeModel($event)"
+        errorText="Введите название модели"
+      ></app-input>
 
+      <app-input
+        class="input"
+        label="Номер автомобиля"
+        name="number"
+        formControlName="number"
+        (changeValue)="changeNumber($event)"
+        errorText=" Введите номер автомобиля"
+      ></app-input>
+    </div>
     <div class="row">
       <div class="input">
         <label class="input__label">Тип автомобиля</label>
@@ -56,7 +30,9 @@
           (change)="changeType(selectType.value)"
           #selectType
         >
-          <option selected>{{ typeDefault }}</option>
+          <option *ngIf="settingForm.controls['type'].value === ''" selected>
+            {{ typeDefault }}
+          </option>
           <option *ngFor="let item of categotyList">
             {{ item }}
           </option>
@@ -112,43 +88,29 @@
 
     <div class="row">
       <div class="daterange-container">
-        <div class="input">
-          <label class="input__label" for="price-min">Минимальная цена</label>
-          <input
-            formControlName="priceMin"
-            class="input__field"
-            type="number"
-            min="0"
-            step="10"
-            name="price-min"
-            (change)="changePriceMin(priceMin.value)"
-            #priceMin
-          />
-          <div
-            [hidden]="controlIsValid('priceMin')"
-            class="error-text text-helvetica"
-          >
-            Добавьте цену
-          </div>
-        </div>
-        <div class="input">
-          <label class="input__label" for="price-max">Максимальная цена</label>
-          <input
-            formControlName="priceMax"
-            class="input__field"
-            type="number"
-            step="10"
-            name="price-max"
-            (change)="changePriceMax(priceMax.value)"
-            #priceMax
-          />
-          <div
-            [hidden]="controlIsValid('priceMax')"
-            class="error-text text-helvetica"
-          >
-            Добавьте цену
-          </div>
-        </div>
+        <app-input
+          class="input"
+          formControlName="priceMin"
+          label="Минимальная цена"
+          name="price-min"
+          step="10"
+          [min]="10"
+          type="number"
+          (changeValue)="changePriceMin($event)"
+          errorText="Добавьте цену"
+        ></app-input>
+
+        <app-input
+          class="input"
+          label="Максимальная цена"
+          name="price-max"
+          step="10"
+          type="number"
+          [min]="0"
+          formControlName="priceMax"
+          (changeValue)="changePriceMax($event)"
+          errorText="Добавьте цену"
+        ></app-input>
       </div>
     </div>
   </div>
@@ -162,9 +124,17 @@
       >
         Сохранить
       </button>
-      <button class="btn btn-grey btn-size-m">Отменить</button>
+      <button class="btn btn-grey btn-size-m" (click)="onCancel()">
+        Отменить
+      </button>
     </div>
 
-    <button class="btn btn-red btn-size-m" (click)="onDelete()">Удалить</button>
+    <button
+      *ngIf="canDelete"
+      class="btn btn-red btn-size-m"
+      (click)="onDelete()"
+    >
+      Удалить
+    </button>
   </div>
 </div>
