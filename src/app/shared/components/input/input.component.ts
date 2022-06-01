@@ -40,6 +40,7 @@ export class InputComponent implements OnInit, ControlValueAccessor {
   @Input() max?: number;
   @Input() value: string = "";
   @Input() errorText: string = "";
+  @Input() isRequired: boolean = true;
 
   @Output() changeValue = new EventEmitter<string>();
 

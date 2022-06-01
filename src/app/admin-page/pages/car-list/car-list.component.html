@@ -15,15 +15,11 @@
           </option>
         </select>
       </div>
-      <div class="input">
-        <input
-          class="input__field"
-          (change)="applyParam({ name: inputSearch.value })"
-          type="text"
-          placeholder="Поиск по имени"
-          #inputSearch
-        />
-      </div>
+      <app-input
+        (changeValue)="applyParam({ name: $event })"
+        [isRequired]="false"
+      >
+      </app-input>
     </div>
     <div class="wrappp-btn">
       <button class="btn btn-red" (click)="clearParams()">Сбросить</button>

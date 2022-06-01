@@ -1,6 +1,7 @@
-<label class="input__label" [for]="name">{{ label }}</label>
+<label *ngIf="label != ''" class="input__label" [for]="name">{{ label }}</label>
 <input
   class="input__field"
+  [ngClass]="{ 'no-required': !isRequired }"
   [name]="name"
   [type]="type"
   [value]="value"
