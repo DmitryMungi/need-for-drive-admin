@@ -4,6 +4,7 @@ import {
   EventEmitter,
   forwardRef,
   Input,
+  OnDestroy,
   OnInit,
   Output,
   ViewChild,
@@ -14,6 +15,7 @@ import {
   NG_VALUE_ACCESSOR,
   Validators,
 } from "@angular/forms";
+import { Subscription } from "rxjs";
 
 export const TYPE_DEF = "text";
 
@@ -29,7 +31,7 @@ export const TYPE_DEF = "text";
     },
   ],
 })
-export class InputComponent implements OnInit, ControlValueAccessor {
+export class InputComponent implements OnInit, ControlValueAccessor, OnDestroy {
   @ViewChild("input") input!: ElementRef;
   @Input() name: string = "";
   @Input() label: string = "";
@@ -43,6 +45,8 @@ export class InputComponent implements OnInit, ControlValueAccessor {
 
   @Output() changeValue = new EventEmitter<string>();
 
+  private subscription!: Subscription;
+
   inputControl = new FormControl("", [
     Validators.required,
     Validators.minLength(1),
@@ -53,7 +57,7 @@ export class InputComponent implements OnInit, ControlValueAccessor {
   constructor() {}
 
   ngOnInit(): void {
-    this.inputControl.valueChanges.subscribe((val) => {
+    this.subscription = this.inputControl.valueChanges.subscribe((val) => {
       if (this.onChange) {
         this.onChange(val);
       }
@@ -80,5 +84,9 @@ export class InputComponent implements OnInit, ControlValueAccessor {
 
   controlIsValid(): boolean {
     return !this.inputControl.invalid || !this.inputControl.touched;
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 }
