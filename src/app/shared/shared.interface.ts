@@ -8,9 +8,6 @@ export interface IRes<T> {
   count: number;
   data: Array<T>;
 }
-// =======
-//   data: Array<T>;
-// }
 
 export interface IResponce<T> {
   data: T;

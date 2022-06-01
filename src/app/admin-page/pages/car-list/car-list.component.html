@@ -30,8 +30,7 @@
       <button class="btn btn-primary" (click)="getCars()">Применить</button>
     </div>
   </div>
-
-  <table class="table">
+  <table class="table" *ngIf="cars$ | async as cars; else loading">
     <thead class="table__heading">
       <tr>
         <th>Название</th>
@@ -43,7 +42,7 @@
         <th>Доступные цвета</th>
       </tr>
     </thead>
-    <tbody class="table__body" *ngIf="cars$ | async as cars">
+    <tbody class="table__body">
       <tr *ngFor="let car of cars">
         <td class="table__cell">
           <span *ngIf="car.name; else noname">
@@ -88,7 +87,11 @@
       </tr>
     </tbody>
   </table>
+  <ng-template #loading>
+    <app-loader></app-loader>
+  </ng-template>
   <app-paginator
+    class="table-paginator"
     [totalPages]="numberOfPages"
     (changePage)="changePage($event)"
   ></app-paginator>

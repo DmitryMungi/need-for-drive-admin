@@ -21,6 +21,7 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { ButtonCloseModule } from "../shared/components/button-close/button-close.module";
 import { AlertModule } from "../shared/components/alert/alert.module";
 import { PaginatorModule } from "../shared/components/paginator/paginator.module";
+import { LoaderModule } from "../shared/components/loader/loader.module";
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import { PaginatorModule } from "../shared/components/paginator/paginator.module
     ButtonCloseModule,
     AlertModule,
     PaginatorModule,
+    LoaderModule,
   ],
   exports: [AdminPageComponent],
 })
