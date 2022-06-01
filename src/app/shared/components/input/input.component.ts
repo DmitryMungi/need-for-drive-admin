@@ -2,10 +2,18 @@ import {
   Component,
   ElementRef,
   EventEmitter,
+  forwardRef,
   Input,
+  OnInit,
   Output,
   ViewChild,
 } from "@angular/core";
+import {
+  ControlValueAccessor,
+  FormControl,
+  NG_VALUE_ACCESSOR,
+  Validators,
+} from "@angular/forms";
 
 export const TYPE_DEF = "text";
 
@@ -13,8 +21,15 @@ export const TYPE_DEF = "text";
   selector: "app-input",
   templateUrl: "./input.component.html",
   styleUrls: ["./input.component.less"],
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => InputComponent),
+      multi: true,
+    },
+  ],
 })
-export class InputComponent {
+export class InputComponent implements OnInit, ControlValueAccessor {
   @ViewChild("input") input!: ElementRef;
   @Input() name: string = "";
   @Input() label: string = "";
@@ -24,26 +39,46 @@ export class InputComponent {
   @Input() min: number = 0;
   @Input() max?: number;
   @Input() value: string = "";
+  @Input() errorText: string = "";
 
   @Output() changeValue = new EventEmitter<string>();
-  @Output() focus = new EventEmitter<void>();
-  @Output() blur = new EventEmitter<void>();
+
+  inputControl = new FormControl("", [
+    Validators.required,
+    Validators.minLength(1),
+  ]);
+  onChange(_: string) {}
+  onTouched(_: any) {}
 
   constructor() {}
 
-  onFocus() {
-    this.focus.emit();
-  }
-
-  onBlur() {
-    this.blur.emit();
+  ngOnInit(): void {
+    this.inputControl.valueChanges.subscribe((val) => {
+      if (this.onChange) {
+        this.onChange(val);
+      }
+    });
   }
 
   onDeleteValue() {
-    this.input.nativeElement.value = "";
+    this.writeValue("");
   }
 
-  onChange(value: string) {
+  writeValue(value: string): void {
+    this.value = value;
+    this.inputControl.setValue(value);
     this.changeValue.emit(value);
+  }
+
+  registerOnChange(fn: any): void {
+    this.onChange = fn;
+  }
+
+  registerOnTouched(fn: any): void {
+    this.onTouched = fn;
+  }
+
+  controlIsValid(): boolean {
+    return !this.inputControl.invalid || !this.inputControl.touched;
   }
 }

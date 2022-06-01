@@ -1,11 +1,4 @@
-import {
-  Component,
-  ElementRef,
-  EventEmitter,
-  OnInit,
-  Output,
-  ViewChild,
-} from "@angular/core";
+import { Component, EventEmitter, OnInit, Output } from "@angular/core";
 import {
   ControlContainer,
   FormControl,
@@ -13,7 +6,7 @@ import {
   FormGroupDirective,
   Validators,
 } from "@angular/forms";
-import { IChek } from "src/app/shared/components/checkbox/checkbox.component";
+import { ICheck } from "src/app/shared/components/checkbox/checkbox.component";
 import { DEFAULT_TYPE } from "../car-card.const";
 import { PRICE_RANGE_ERROR_TEXT, ERROR } from "src/app/shared/const/const";
 import { CardService } from "../card.service";
@@ -29,10 +22,10 @@ import { AlertService } from "src/app/shared/components/alert/alert.service";
   ],
 })
 export class CarSettingComponent implements OnInit {
-  @ViewChild("inputModel") inputModel!: ElementRef;
   @Output() setProcent = new EventEmitter<void>();
   @Output() onSave = new EventEmitter<void>();
-  @Output() deleteValues = new EventEmitter<void>();
+  @Output() cancelValues = new EventEmitter<void>();
+  @Output() deleteNewCar = new EventEmitter<string>();
 
   public settingForm = new FormGroup({
     model: new FormControl("", [Validators.required, Validators.minLength(3)]),
@@ -43,6 +36,7 @@ export class CarSettingComponent implements OnInit {
     priceMax: new FormControl(0, [Validators.required, this.priceValidator]),
   });
   public isOpen: boolean = false;
+  public canDelete: boolean = false;
 
   constructor(
     private cardService: CardService,
@@ -87,30 +81,20 @@ export class CarSettingComponent implements OnInit {
 
   changeModel(value: string) {
     this.cardService.setCarName(value);
-    this.settingForm.patchValue({ model: value });
     this.setProcent.emit();
   }
 
   changeType(value: string) {
     if (value != DEFAULT_TYPE) {
       this.cardService.setCategoryValue(value);
-      this.setProcent.emit();
+    } else {
+      this.settingForm.patchValue({ type: "" });
     }
-  }
-
-  typeOnFocus() {
-    this.isOpen = true;
-  }
-
-  typeBlur() {
-    setTimeout(() => {
-      this.isOpen = false;
-    }, 200);
+    this.setProcent.emit();
   }
 
   changeNumber(value: string) {
     this.cardService.setNumber(value);
-    this.settingForm.patchValue({ number: value });
     this.setProcent.emit();
   }
 
@@ -119,8 +103,8 @@ export class CarSettingComponent implements OnInit {
     if (this.settingForm.controls["priceMin"].valid) {
       this.price.priceMin = price;
       this.setPriceValues();
-      this.setProcent.emit();
     }
+    this.setProcent.emit();
   }
 
   changePriceMax(value: string) {
@@ -128,8 +112,8 @@ export class CarSettingComponent implements OnInit {
     if (this.settingForm.controls["priceMax"].valid) {
       this.price.priceMax = price;
       this.setPriceValues();
-      this.setProcent.emit();
     }
+    this.setProcent.emit();
   }
 
   setPriceValues() {
@@ -145,7 +129,7 @@ export class CarSettingComponent implements OnInit {
     }
   }
 
-  toggleCheckBox(value: IChek) {
+  toggleCheckBox(value: ICheck) {
     !this.colorsList.includes(value.name)
       ? this.colorsList.push(value.name)
       : this.removeColor(value.name);
@@ -162,6 +146,7 @@ export class CarSettingComponent implements OnInit {
 
   saveNewCar() {
     this.cardService.setColors(this.colorsList);
+    this.canDelete = true;
     this.onSave.emit();
   }
 
@@ -173,9 +158,14 @@ export class CarSettingComponent implements OnInit {
   }
 
   onDelete() {
+    const carId = this.cardService.newCarRes.id;
+    this.deleteNewCar.emit(carId);
+  }
+
+  onCancel() {
     this.formModel.onReset();
     this.colorsList.length = 0;
     this.cardService.resetNewCar();
-    this.deleteValues.emit();
+    this.cancelValues.emit();
   }
 }

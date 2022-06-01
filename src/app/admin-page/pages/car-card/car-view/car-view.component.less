@@ -6,7 +6,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100%;
+  width: 30%;
   background-color: @color-white;
   border-radius: 9px;
   box-shadow: @shadow;
@@ -45,7 +45,17 @@
 }
 
 @media (max-width: 1170px) {
+  :host {
+    width: 40%;
+  }
   .view-name {
     font-size: 20px;
+  }
+}
+
+@media (max-width: 1020px) {
+  :host {
+    width: 80%;
+    margin-bottom: 20px;
   }
 }

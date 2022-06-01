@@ -1,11 +1,9 @@
-import { Component, ElementRef, ViewChild } from "@angular/core";
+import { Component, ElementRef, ViewChild, Renderer2 } from "@angular/core";
 import { Router } from "@angular/router";
 import { UntilDestroy } from "@ngneat/until-destroy";
 import { tap } from "rxjs";
 import { AuthService } from "src/app/auth-page/auth.service";
-import { AlertStatus } from "src/app/shared/components/alert/alert.component";
 import { TokenService } from "../../shared/services/token.service";
-import { AlertService } from "src/app/shared/components/alert/alert.service";
 
 @UntilDestroy({ checkProperties: true })
 @Component({
@@ -14,30 +12,23 @@ import { AlertService } from "src/app/shared/components/alert/alert.service";
   styleUrls: ["./header.component.less"],
 })
 export class HeaderComponent {
-  @ViewChild("details", { static: false }) details!: ElementRef;
-
-  public get isAlert() {
-    return this.alertService.isAlert;
-  }
-  public get alertText() {
-    return this.alertService.alertText;
-  }
-  public get alertStatus(): AlertStatus {
-    return this.alertService.alertStatus;
-  }
-
   constructor(
     private authService: AuthService,
     private router: Router,
     private tokenService: TokenService,
-    private alertService: AlertService
+    private render: Renderer2
   ) {}
 
+  @ViewChild("details")
+  private details!: ElementRef;
+
   openDetails() {
-    this.details.nativeElement.classList.toggle("active");
+    this.details.nativeElement.classList.contains("active")
+      ? this.render.removeClass(this.details.nativeElement, "active")
+      : this.render.addClass(this.details.nativeElement, "active");
   }
 
-  inOut() {
+  logOut() {
     this.authService
       .logout()
       .pipe(

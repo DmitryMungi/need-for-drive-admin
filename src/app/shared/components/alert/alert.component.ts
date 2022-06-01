@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, SimpleChanges } from "@angular/core";
+import { Component, OnChanges, SimpleChanges } from "@angular/core";
 import { AlertService } from "./alert.service";
 
 export type AlertStatus = "success" | "error";
@@ -9,8 +9,17 @@ export type AlertStatus = "success" | "error";
   styleUrls: ["./alert.component.less"],
 })
 export class AlertComponent implements OnChanges {
-  @Input() text: string = "";
-  @Input() status: AlertStatus = "success";
+  public get text(): string {
+    return this.alertService.alertText;
+  }
+
+  public get status(): AlertStatus {
+    return this.alertService.alertStatus;
+  }
+
+  public get isAlert(): boolean {
+    return this.alertService.isAlert;
+  }
 
   public innerStatus: AlertStatus = "success";
   constructor(private alertService: AlertService) {}

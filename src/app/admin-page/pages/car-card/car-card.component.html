@@ -1,5 +1,5 @@
-<h2 class="page__title">Карточка автомобиля</h2>
-<form class="page__content" [formGroup]="formModel">
+<h2 class="car-card__title">Карточка автомобиля</h2>
+<form class="car-card__content" [formGroup]="formModel">
   <app-car-view
     (setProcent)="setTotalProcent()"
     [procent]="totalProcent"
@@ -7,9 +7,11 @@
     #carView
   ></app-car-view>
   <app-car-setting
-    (deleteValues)="deleteValues()"
+    (cancelValues)="cancelValues()"
     (onSave)="sendNewCar()"
     (setProcent)="setTotalProcent()"
+    (deleteNewCar)="deleteNewCar($event)"
     class="content-setting"
+    #carSetting
   ></app-car-setting>
 </form>

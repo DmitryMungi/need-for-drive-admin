@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter } from "@angular/core";
 
-export interface IChek {
+export interface ICheck {
   name: string;
   isActive: boolean;
 }
@@ -14,7 +14,7 @@ export class CheckboxComponent {
   @Input() label: string = "";
   @Input() name: string = "";
   @Input() isChecked: boolean = false;
-  @Output() toggleCheckBox = new EventEmitter<IChek>();
+  @Output() toggleCheckBox = new EventEmitter<ICheck>();
 
   constructor() {}
 

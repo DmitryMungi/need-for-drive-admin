@@ -1,8 +1,8 @@
 <div
+  *ngIf="isAlert"
   class="alert-wrapp acept"
   [class.success]="status === 'success'"
   [class.error]="status === 'error'"
-  [ngClass]="[innerStatus]"
 >
   <span class="alert-text">{{ text }}</span>
   <button class="alert-close" (click)="onClose()">
