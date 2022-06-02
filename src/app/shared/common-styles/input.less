@@ -1,11 +1,12 @@
 @import './variables.less';
 
 input.ng-touched.ng-invalid {
-  border: solid @color-red-error 0.5px;
+  border: solid @color-red-error 0.5px !important;
   box-shadow: @shadow-error;
 }
 
 .input {
+  position: relative;
   font-family: 'Helvetica';
   font-weight: 400;
   display: flex;
@@ -29,5 +30,27 @@ input.ng-touched.ng-invalid {
     &:focus {
       outline: 1px solid @color-blye-10;
     }
+  }
+}
+
+.search {
+  position: relative;
+
+  &__icon {
+    position: absolute;
+    top: 8px;
+    left: 2px;
+
+    .search__icon_img {
+      width: 15px;
+      height: 15px;
+    }
+  }
+
+  .input-search {
+    border: none;
+    outline: none;
+    padding: 8px 4px 8px 24px;
+    color: @color-black;
   }
 }

@@ -1,15 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from "@angular/core";
 
 @Component({
-  selector: 'app-admin-page',
-  templateUrl: './admin-page.component.html',
-  styleUrls: ['./admin-page.component.less']
+  selector: "app-admin-page",
+  templateUrl: "./admin-page.component.html",
+  styleUrls: ["./admin-page.component.less"],
 })
-export class AdminPageComponent implements OnInit {
+export class AdminPageComponent {
+  public menuIsOpen: boolean = false;
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit(): void {
+  onMenuBtn() {
+    this.menuIsOpen = !this.menuIsOpen;
   }
-
 }

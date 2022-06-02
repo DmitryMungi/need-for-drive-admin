@@ -1,0 +1,131 @@
+@import '../../../../shared/common-styles/variables.less';
+@import '../../../../shared/common-styles/text.less';
+@import '../../../../shared/common-styles/input.less';
+@import '../../../../shared/common-styles/button.less';
+
+:host {
+  padding: 20px;
+  background-color: @color-white;
+  border-radius: 9px;
+  width: 68%;
+  box-shadow: @shadow;
+
+  .setting__title {
+    margin-bottom: 42px;
+  }
+
+  .setting {
+    height: 84%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+
+    .input {
+      width: 46%;
+      margin-bottom: 10px;
+    }
+  }
+
+  .daterange-container {
+    width: 100%;
+    .input {
+      margin-bottom: 40px;
+    }
+  }
+
+  .colors-values {
+      width: 50%;
+      position: relative;
+
+    .input-field {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      margin-bottom: 16px;
+
+      .input {
+        width: 83%;
+        margin-right: 12px;
+
+        .error-text {
+          position: absolute;
+          top: 54px;
+        }
+      }
+
+      .btn-plus {
+        margin-top: 11px;
+      }
+    }
+
+    .checkbox-field {
+      padding-left: 40px;
+      position: absolute;
+      max-height: 200px;
+      overflow-y: auto;
+
+      .checkbox__item {
+        margin-bottom: 8px;
+      }
+    }
+  }
+
+  .button-container {
+    display: flex;
+    justify-content: space-between;
+
+    .btn {
+      margin: 0 6px;
+    }
+  }
+}
+
+@media (max-width: 1170px) {
+  :host {
+    width: 58%;
+  }
+}
+
+@media (max-width: 1120px) {
+  .setting {
+    .row {
+      flex-direction: column;
+
+      .input {
+        width: 100%;
+      }
+
+      .colors-values {
+        width: 100%;
+
+        .input-field {
+          margin-bottom: 0;
+
+          .input {
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 1020px ) {
+  :host {
+    width: 100%;
+  }
+}
+
+@media (max-width: 520px){
+  .button-container {
+    .btn:first-child {
+      margin-bottom: 12px;
+    }
+  }
+}

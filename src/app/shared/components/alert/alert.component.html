@@ -1,0 +1,13 @@
+<div
+  *ngIf="isAlert"
+  class="alert-wrapp acept"
+  [class.success]="status === 'success'"
+  [class.error]="status === 'error'"
+>
+  <span class="alert-text">{{ text }}</span>
+  <button class="alert-close" (click)="onClose()">
+    <svg class="close-icon">
+      <use xlink:href="assets/sprite/symbol-defs.svg#close-icon"></use>
+    </svg>
+  </button>
+</div>

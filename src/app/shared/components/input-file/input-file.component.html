@@ -1,0 +1,13 @@
+<div class="input-container">
+  <label class="label" for="input-file">Обзор</label>
+  <input
+    (change)="returnImageValue()"
+    type="file"
+    id="input-file"
+    [accept]="accept"
+    #inputFile
+  />
+</div>
+<div class="preview" #previev>
+  <p class="preview__text">{{ textPreriew }}</p>
+</div>

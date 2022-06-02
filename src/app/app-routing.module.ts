@@ -6,7 +6,7 @@ import { AuthGuard } from "./auth-page/auth.guard";
 const routes: Routes = [
   { path: "", component: AuthPageComponent, pathMatch: "full" },
   {
-    path: "admin",
+    path: "nfd-admin",
     loadChildren: () =>
       import("./admin-page/admin.module").then((m) => m.AdminModule),
     canLoad: [AuthGuard],

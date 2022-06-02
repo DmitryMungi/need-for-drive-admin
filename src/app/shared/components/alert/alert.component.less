@@ -1,0 +1,50 @@
+@import '../../common-styles/variables.less';
+
+:host {
+ position: absolute;
+ left: 0;
+ right: 0;
+}
+
+.alert-wrapp {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 20px;
+
+  .alert-text {
+    font-size: 13px;
+    color: @color-white;
+  }
+
+  .alert-close {
+    padding: 8px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+
+    .close-icon {
+      stroke: @color-white;
+      width: 12px;
+      height: 12px;
+    }
+  }
+}
+
+.alert-wrapp.success {
+  background-color: @color-green;
+
+  .alert-close {
+    background-color: inherit;
+  }
+}
+
+.alert-wrapp.error {
+  background-color: @color-red-error;
+
+  .alert-close {
+    background-color: inherit;
+  }
+}
+
+

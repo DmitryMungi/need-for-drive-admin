@@ -1,0 +1,141 @@
+@import '../../shared/common-styles/variables.less';
+@import '../../shared/common-styles/input.less';
+@import '../../shared/common-styles/text.less';
+
+:host {
+  position: relative;
+}
+
+.header {
+  height: 67.5px;
+  display: flex;
+  box-shadow: @shadow-bottom;
+
+  .header-search {
+    padding-left: 28px;
+    display: inherit;
+    align-items: center;
+    flex-grow: 1;
+
+    &__search {
+      border: none;
+      outline: none;
+      padding: 8px 4px 8px 24px;
+      color: @color-black;
+    }
+  }
+
+  &__notification {
+    width: 69.5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-left: 1px solid @color-grey-20;
+    border-right: 1px solid @color-grey-20;
+
+    .notifications-img {
+      width: 17px;
+    }
+  }
+
+  .header-details {
+    display: flex;
+    align-items: center;
+    padding-right: 28px;
+    position: relative;
+    cursor: pointer;
+
+    &__img {
+      margin-left: 25.5px;
+      width: 42px;
+      border-radius: 50%;
+    }
+
+    &__user {
+      margin-left: 13px;
+      position: relative;
+      padding-right: 54px;
+      font-size: 15px;
+      color: @color-black-20;
+
+      &::after {
+        content: '';
+        position: absolute;
+        right: 4px;
+        top: 45%;
+        border: 4.25px solid transparent;
+        border-top: 4.25px solid @color-grey-30;
+      }
+    }
+
+    &__dropdown {
+      display: none;
+      position: absolute;
+      width: 100%;
+      top: calc(100% + 4px);
+      padding: 16px 20px;
+      background-color: @color-white;
+      box-shadow: @shadow;
+
+      .dropdown-item {
+        font-size: 15px;
+        line-height: 200%;
+        color: @color-black-20;
+        cursor: pointer;
+
+        &::before {
+          content: url('../../../assets/img/exit-icon.svg');
+          width: 20px;
+          margin-right: 8px;
+          position: relative;
+          top: 3px;
+        }
+      }
+    }
+  }
+
+  .header-details.active {
+    .header-details__user {
+      &::after {
+        transform: rotate(180deg);
+        top: 20%;
+      }
+    }
+
+    .header-details__dropdown {
+      display: block;
+    }
+  }
+}
+
+@media (max-width: 750px){
+  .header {
+    padding-left: 60px;
+  }
+}
+
+@media (max-width: 510px){
+  .header {
+    .header-details {
+      padding-right: 8px;
+
+      &__img {
+        width: 32px;
+        margin-left: 10px;
+      }
+
+      &__user {
+        height: 10px;
+        padding-right: 10px;
+
+        .details-user__text {
+          display: none;
+        }
+      }
+
+      .dropdown-item__text {
+        display: none;
+      }
+    }
+  }
+}

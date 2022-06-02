@@ -1,0 +1,57 @@
+@import '../../../shared/common-styles/variables.less';
+@import '../../../shared/common-styles/text.less';
+
+input.ng-touched.ng-invalid {
+  border: solid @color-red-error 0.5px;
+  box-shadow: @shadow-error;
+}
+
+:host {
+  position: relative;
+  margin-bottom: 10px;
+  font-family: 'Helvetica';
+  font-weight: 400;
+  display: flex;
+  flex-direction: column;
+
+  .input__label {
+    margin-bottom: 8.5px;
+    font-size: 10.5px;
+    line-height: 120%;
+    color: @color-black-10;
+  }
+
+  .input__field {
+    font-size: 11px;
+    color: @color-navy-blue;
+    padding: 8px 11.5px 8.5px;
+    border-radius: 3px;
+    border: 1px solid @color-blye-10;
+    outline: none;
+
+    &:focus {
+      outline: 1px solid @color-blye-10;
+    }
+  }
+
+  .input__btn {
+    position: absolute;
+    background-color: @color-white;
+    border: none;
+    outline: none;
+    right: 14px;
+    top: 30px;
+    cursor: pointer;
+
+    .close-icon {
+      stroke: black;
+      width: 12px;
+      height: 12px;
+    }
+  }
+
+  .error-text {
+    position: absolute;
+    top: 100%;
+  }
+}
