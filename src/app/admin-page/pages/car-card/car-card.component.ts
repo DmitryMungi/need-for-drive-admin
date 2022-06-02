@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from "@angular/core";
 import { map, take, tap } from "rxjs";
 import { CardApiService } from "./car-card.api.service";
 import { CardService } from "./card.service";
-import { ICar, IThumbnail } from "./car-card.interface";
+import { ICar } from "./car-card.interface";
 import { UntilDestroy } from "@ngneat/until-destroy";
 import { FormGroup } from "@angular/forms";
 import { PROCENT, PROCENT_POINT, START_COUNT } from "./car-card.const";
@@ -41,25 +41,18 @@ export class CarCardComponent implements OnInit {
     const newCar = this.cardService.newCar;
     const newCarRes = this.cardService.newCarRes;
 
-    if (Object.keys(newCarRes).length == 0) {
-      this.cardApiService
-        .setNewCar(this.newCar)
-        .pipe(
-          take(1),
-          map((res) => res.data),
-          tap((res) => this.cardService.setNewCarRes(res))
-        )
-        .subscribe();
-    } else {
-      this.cardApiService
-        .changeNewCar(newCarRes.id, newCar)
-        .pipe(
-          take(1),
-          map((res) => res.data),
-          tap((res) => this.cardService.setNewCarRes(res))
-        )
-        .subscribe();
-    }
+    const request =
+      Object.keys(newCarRes).length == 0
+        ? this.cardApiService.setNewCar(this.newCar)
+        : this.cardApiService.changeNewCar(newCarRes.id, newCar);
+
+    request
+      .pipe(
+        take(1),
+        map((res) => res.data),
+        tap((res) => this.cardService.setNewCarRes(res))
+      )
+      .subscribe();
   }
 
   createList(list: ICategory[]) {
@@ -75,11 +68,14 @@ export class CarCardComponent implements OnInit {
 
     const length = Object.keys(setting).length + Object.keys(view).length;
 
-    settingCount = Object.values(setting).reduce((total: number, key: any) => {
-      return total + this.onInputFieldProcent(key);
-    }, 0);
+    settingCount = Object.values(setting).reduce(
+      (total: number, key: unknown) => {
+        return total + this.onInputFieldProcent(key);
+      },
+      0
+    );
 
-    viewCount = Object.values(view).reduce((total: number, key: any) => {
+    viewCount = Object.values(view).reduce((total: number, key: unknown) => {
       return total + this.onInputFieldProcent(key);
     }, 0);
 
@@ -87,9 +83,7 @@ export class CarCardComponent implements OnInit {
     this.totalProcent = PROCENT - (PROCENT / length) * totalCount;
   }
 
-  onInputFieldProcent(
-    key: string | number | null | object | Array<string> | IThumbnail
-  ): number {
+  onInputFieldProcent(key: unknown): number {
     let total = START_COUNT;
     if (typeof key === "number" && (key === START_COUNT || isNaN(key))) {
       total = total + PROCENT_POINT;
