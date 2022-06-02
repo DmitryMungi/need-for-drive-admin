@@ -1,0 +1,28 @@
+<label class="input__label" [for]="name">{{ label }}</label>
+<input
+  class="input__field"
+  [name]="name"
+  [type]="type"
+  [value]="value"
+  [placeholder]="placeholder"
+  [step]="step"
+  (change)="writeValue(input.value)"
+  [min]="min"
+  [max]="max"
+  [formControl]="inputControl"
+  #input
+/>
+
+<button
+  *ngIf="input.value != ''"
+  type="button"
+  (click)="onDeleteValue()"
+  class="input__btn"
+>
+  <svg class="close-icon">
+    <use xlink:href="assets/sprite/symbol-defs.svg#close-icon"></use>
+  </svg>
+</button>
+<div [hidden]="controlIsValid()" class="error-text">
+  {{ errorText }}
+</div>

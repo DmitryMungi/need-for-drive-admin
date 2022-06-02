@@ -1,1 +1,20 @@
-<p>admin-page works!</p>
+<div class="side-container" [ngClass]="{ active: menuIsOpen }">
+  <app-side-bar class="side-menu"></app-side-bar>
+  <button class="side-bar__btn btn-icon" (click)="onMenuBtn()">
+    <svg *ngIf="!menuIsOpen; else closeIcon" class="icon-img">
+      <use xlink:href="assets/sprite/symbol-defs.svg#burger-icon"></use>
+    </svg>
+    <ng-template #closeIcon>
+      <svg class="icon-img">
+        <use xlink:href="assets/sprite/symbol-defs.svg#close-icon"></use>
+      </svg>
+    </ng-template>
+  </button>
+</div>
+<div class="main-container">
+  <app-header></app-header>
+  <main class="main-content">
+    <router-outlet></router-outlet>
+  </main>
+  <app-footer></app-footer>
+</div>

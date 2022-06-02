@@ -1,0 +1,47 @@
+@import '../../common-styles/variables.less';
+
+:host {
+  display: flex;
+  flex-direction: row-reverse;
+  width: 100%;
+  margin: 4px 0;
+  border: 0.5px solid @color-blye-10;
+  border-radius: 4px;
+}
+
+input[type="file"] {
+  display: none;
+}
+
+.input-container {
+  display: flex;
+  border-left: 1px solid @color-blye-10;
+}
+
+.preview {
+  display: flex;
+  flex-grow: 1.5;
+  padding: 8px 13px;
+  background-color: @color-white;
+  border-radius: 4px 0 0 4px;
+  font-size: 10px;
+  line-height: 12px;
+  color: @color-black-10;
+}
+
+.label {
+  background-color: @color-grey-10;
+  padding: 8px 15px;
+  border-radius: 0 4px 4px 0;
+  font-size: 0.8rem;
+  height: auto;
+  cursor: pointer;
+}
+
+ label:hover {
+  background-color: @color-grey-20;
+}
+
+ label:active {
+  background-color: @color-grey-10;
+}

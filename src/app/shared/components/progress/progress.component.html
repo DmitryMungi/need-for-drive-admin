@@ -1,0 +1,10 @@
+<label class="progress-label" for="progress">
+  <span class="label-title">Заполнено</span>
+  <span class="label-value">{{ level + "%" }}</span>
+</label>
+<progress
+  name="progress"
+  max="100"
+  [value]="level"
+  class="progress-bar"
+></progress>

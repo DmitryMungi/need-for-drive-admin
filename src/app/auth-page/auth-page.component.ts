@@ -29,7 +29,7 @@ export class AuthPageComponent implements OnInit {
   }
 
   private navigateToAccount() {
-    this.router.navigate(["/admin"]);
+    this.router.navigate(["/nfd-admin/admin/card"]);
   }
 
   onSubmit() {
