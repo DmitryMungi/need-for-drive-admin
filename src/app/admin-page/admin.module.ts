@@ -4,7 +4,7 @@ import { AdminPageComponent } from "./admin-page.component";
 import { AdminRoutingModule } from "./admin-routing.module";
 import { HeaderComponent } from "./header/header.component";
 import { FooterComponent } from "./footer/footer.component";
-import { SideBarComponent } from "./sidebar/sidebar.component";
+import { SideBarComponent } from "../admin-page/sidebar/sidebar.component";
 import { LogoModule } from "../shared/components/logo/logo.module";
 import { CarCardComponent } from "./pages/car-card/car-card.component";
 import { CarListComponent } from "./pages/car-list/car-list.component";
