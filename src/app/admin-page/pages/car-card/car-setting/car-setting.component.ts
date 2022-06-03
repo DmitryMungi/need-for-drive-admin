@@ -10,7 +10,7 @@ import { ICheck } from "src/app/shared/components/checkbox/checkbox.component";
 import { DEFAULT_TYPE } from "../car-card.const";
 import { PRICE_RANGE_ERROR_TEXT, ERROR } from "src/app/shared/const/const";
 import { CardService } from "../card.service";
-import { IPrice } from "../car-card.interface";
+import { ICarRes, IPrice } from "../car-card.interface";
 import { AlertService } from "src/app/shared/components/alert/alert.service";
 
 @Component({
@@ -27,6 +27,13 @@ export class CarSettingComponent implements OnInit {
   @Output() cancelValues = new EventEmitter<void>();
   @Output() deleteNewCar = new EventEmitter<string>();
 
+  constructor(
+    private cardService: CardService,
+    public formModel: FormGroupDirective,
+    private alertService: AlertService
+  ) {}
+
+  public carRes: ICarRes = this.cardService.newCarRes;
   public settingForm = new FormGroup({
     model: new FormControl("", [Validators.required, Validators.minLength(3)]),
     type: new FormControl("", [Validators.required, this.typeValidator]),
@@ -36,14 +43,7 @@ export class CarSettingComponent implements OnInit {
     priceMax: new FormControl(0, [Validators.required, this.priceValidator]),
   });
   public isOpen: boolean = false;
-  public canDelete: boolean = false;
-
-  constructor(
-    private cardService: CardService,
-    public formModel: FormGroupDirective,
-    private alertService: AlertService
-  ) {}
-
+  public carIsEmpty: boolean = Object.keys(this.carRes).length != 0;
   public price: IPrice = {
     priceMax: 0,
     priceMin: 0,
@@ -52,12 +52,24 @@ export class CarSettingComponent implements OnInit {
   public get categotyList() {
     return this.cardService.getCategoryList();
   }
-
   public colorsList: string[] = [];
   public typeDefault: string = DEFAULT_TYPE;
 
   ngOnInit(): void {
     this.formModel.form.addControl("settings", this.settingForm);
+
+    if (this.carIsEmpty) {
+      setTimeout(() => {
+        this.settingForm.patchValue({ model: this.carRes.name });
+        this.settingForm.patchValue({ type: this.carRes.categoryId.name });
+        this.changeType(this.carRes.categoryId.name);
+        this.settingForm.patchValue({ number: this.carRes.number });
+        this.settingForm.patchValue({ colors: [this.carRes.colors[0]] });
+        this.colorsList = this.carRes.colors;
+        this.settingForm.patchValue({ priceMin: this.carRes.priceMin });
+        this.settingForm.patchValue({ priceMax: this.carRes.priceMax });
+      }, 500);
+    }
   }
 
   priceValidator(control: FormControl): { [s: string]: boolean } | null {
@@ -146,7 +158,7 @@ export class CarSettingComponent implements OnInit {
 
   saveNewCar() {
     this.cardService.setColors(this.colorsList);
-    this.canDelete = true;
+    this.carIsEmpty = true;
     this.onSave.emit();
   }
 

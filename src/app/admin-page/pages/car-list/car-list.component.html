@@ -18,6 +18,7 @@
       <app-input
         (changeValue)="applyParam({ name: $event })"
         [isRequired]="false"
+        placeholder="Введите название"
       >
       </app-input>
     </div>
@@ -29,56 +30,49 @@
   <table class="table" *ngIf="cars$ | async as cars; else loading">
     <thead class="table__heading">
       <tr>
-        <th>Название</th>
-        <th>Категория</th>
-        <th>Номер</th>
-        <th>Описание</th>
-        <th>Минимальная цена</th>
-        <th>Мфксимальная цена</th>
-        <th>Доступные цвета</th>
+        <th class="table__cell">Название</th>
+        <th class="table__cell">Категория</th>
+        <th class="table__cell">Номер</th>
+        <th class="table__cell">Описание</th>
+        <th class="table__cell">Минимальная цена</th>
+        <th class="table__cell">Мфксимальная цена</th>
+        <th class="table__cell">Доступные цвета</th>
       </tr>
     </thead>
     <tbody class="table__body">
-      <tr *ngFor="let car of cars">
+      <tr class="table__row" *ngFor="let car of cars" (click)="onClickRow(car)">
         <td class="table__cell">
-          <span *ngIf="car.name; else noname">
+          <span *ngIf="car.name; else unknown">
             {{ car.name }}
           </span>
-          <ng-template #noname> Неизвестно </ng-template>
         </td>
         <td class="table__cell">
-          <span *ngIf="car.categoryId && car.categoryId.name; else nocategory">
+          <span *ngIf="car.categoryId && car.categoryId.name; else unknown">
             {{ car.categoryId.name }}
           </span>
-          <ng-template #nocategory> Неизвестно </ng-template>
         </td>
         <td class="table__cell">
-          <span *ngIf="car.number; else nonumber">
+          <span *ngIf="car.number; else unknown">
             {{ car.number }}
           </span>
-          <ng-template #nonumber> Неизвестно </ng-template>
         </td>
         <td class="table__cell">
-          <span *ngIf="car.description; else nodesc">
+          <span *ngIf="car.description; else unknown">
             {{ car.description }}
           </span>
-          <ng-template #nodesc> Неизвестно </ng-template>
         </td>
         <td class="table__cell">
-          <span *ngIf="car.priceMin; else noPriceMin"> {{ car.priceMin }}</span>
-          <ng-template #noPriceMin> Неизвестно </ng-template>
+          <span *ngIf="car.priceMin; else unknown"> {{ car.priceMin }}</span>
         </td>
         <td class="table__cell">
-          <span *ngIf="car.priceMax; else noPriceMax">
+          <span *ngIf="car.priceMax; else unknown">
             {{ car.priceMax }}
           </span>
-          <ng-template #noPriceMax> Неизвестно </ng-template>
         </td>
         <td class="table__cell">
-          <span *ngIf="car.colors; else nocolors">
+          <span *ngIf="car.colors; else unknown">
             {{ car.colors }}
           </span>
-          <ng-template #nocolors> Неизвестно </ng-template>
         </td>
       </tr>
     </tbody>
@@ -92,3 +86,4 @@
     (changePage)="changePage($event)"
   ></app-paginator>
 </div>
+<ng-template #unknown> Неизвестно </ng-template>

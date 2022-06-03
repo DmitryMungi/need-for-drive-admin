@@ -8,7 +8,7 @@ import {
   EventEmitter,
 } from "@angular/core";
 import { CardService } from "../card.service";
-import { THUMBNAIL_DEF, IThumbnail } from "../car-card.interface";
+import { THUMBNAIL_DEF, IThumbnail, ICarRes } from "../car-card.interface";
 import { DEFAULT_CAR_NAME, DEFAULT_TYPE } from "../car-card.const";
 import {
   ControlContainer,
@@ -34,21 +34,17 @@ export class CarViewComponent implements OnInit {
   @ViewChild("textarea") textarea!: TextareaComponent;
   @Input() procent: number = 0;
   @Output() setProcent = new EventEmitter<void>();
-  public thumbnail: IThumbnail = THUMBNAIL_DEF;
-
-  public viewForm = new FormGroup({
-    thumbnail: new FormControl(null, Validators.required),
-    description: new FormControl("", Validators.required),
-  });
 
   constructor(
     private cardService: CardService,
     private formModel: FormGroupDirective
   ) {}
 
-  ngOnInit(): void {
-    this.formModel.form.addControl("view", this.viewForm);
-  }
+  public thumbnail: IThumbnail = THUMBNAIL_DEF;
+  public viewForm = new FormGroup({
+    thumbnail: new FormControl(null, Validators.required),
+    description: new FormControl("", Validators.required),
+  });
 
   public get name(): string {
     const name = this.cardService.getCar().name;
@@ -58,6 +54,26 @@ export class CarViewComponent implements OnInit {
   public get type(): string {
     const type = this.cardService.getCar().categoryId.name;
     return type != "" ? type : DEFAULT_TYPE;
+  }
+
+  public carRes: ICarRes = this.cardService.newCarRes;
+
+  ngOnInit(): void {
+    this.formModel.form.addControl("view", this.viewForm);
+
+    if (Object.keys(this.carRes).length != 0) {
+      setTimeout(() => {
+        this.viewForm.patchValue({
+          thumbnail: this.carRes.thumbnail,
+        });
+        this.thumbnail = this.carRes.thumbnail;
+        this.cardService.setThumbnail(this.thumbnail);
+        this.imgModel.nativeElement.src = this.carRes.thumbnail.path;
+        this.viewForm.patchValue({ description: this.carRes.description });
+        this.textareaChange(this.carRes.description);
+        this.textarea.textarea.nativeElement.value = this.carRes.description;
+      }, 500);
+    }
   }
 
   getImage(value: File) {
