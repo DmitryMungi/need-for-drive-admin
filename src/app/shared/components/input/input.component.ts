@@ -47,7 +47,6 @@ export class InputComponent implements OnInit, ControlValueAccessor, OnDestroy {
   @Output() changeValue = new EventEmitter<string>();
 
   private subscription!: Subscription;
-
   inputControl = new FormControl("", [
     Validators.required,
     Validators.minLength(1),

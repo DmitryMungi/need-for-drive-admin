@@ -60,14 +60,16 @@ export class CarSettingComponent implements OnInit {
 
     if (this.carIsEmpty) {
       setTimeout(() => {
-        this.settingForm.patchValue({ model: this.carRes.name });
-        this.settingForm.patchValue({ type: this.carRes.categoryId.name });
+        this.settingForm.patchValue({
+          model: this.carRes.name,
+          type: this.carRes.categoryId.name ? this.carRes.categoryId.name : "",
+          number: this.carRes.number,
+          colors: [this.carRes.colors[0]],
+          priceMin: this.carRes.priceMin,
+          priceMax: this.carRes.priceMax,
+        });
         this.changeType(this.carRes.categoryId.name);
-        this.settingForm.patchValue({ number: this.carRes.number });
-        this.settingForm.patchValue({ colors: [this.carRes.colors[0]] });
         this.colorsList = this.carRes.colors;
-        this.settingForm.patchValue({ priceMin: this.carRes.priceMin });
-        this.settingForm.patchValue({ priceMax: this.carRes.priceMax });
       }, 500);
     }
   }

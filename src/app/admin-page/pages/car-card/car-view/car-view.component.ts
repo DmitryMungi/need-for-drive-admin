@@ -65,13 +65,11 @@ export class CarViewComponent implements OnInit {
       setTimeout(() => {
         this.viewForm.patchValue({
           thumbnail: this.carRes.thumbnail,
+          description: this.carRes.description,
         });
         this.thumbnail = this.carRes.thumbnail;
         this.cardService.setThumbnail(this.thumbnail);
         this.imgModel.nativeElement.src = this.carRes.thumbnail.path;
-        this.viewForm.patchValue({ description: this.carRes.description });
-        this.textareaChange(this.carRes.description);
-        this.textarea.textarea.nativeElement.value = this.carRes.description;
       }, 500);
     }
   }
@@ -98,7 +96,6 @@ export class CarViewComponent implements OnInit {
 
   textareaChange(value: string) {
     this.cardService.setDescription(value);
-    this.viewForm.patchValue({ description: value });
     this.setProcent.emit();
   }
 

@@ -1,7 +1,9 @@
 <label class="area-label">{{ label }}</label>
 <textarea
-  (change)="changeValue.emit(textarea.value)"
+  (change)="writeValue(textarea.value)"
   class="area-field"
+  [value]="value"
   [placeholder]="placeholder"
+  [formControl]="textAreaControl"
   #textarea
 ></textarea>
