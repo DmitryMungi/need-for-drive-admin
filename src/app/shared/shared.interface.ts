@@ -5,6 +5,7 @@ export interface ICategory {
 }
 
 export interface IRes<T> {
+  count: number;
   data: Array<T>;
 }
 

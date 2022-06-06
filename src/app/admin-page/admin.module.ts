@@ -4,7 +4,7 @@ import { AdminPageComponent } from "./admin-page.component";
 import { AdminRoutingModule } from "./admin-routing.module";
 import { HeaderComponent } from "./header/header.component";
 import { FooterComponent } from "./footer/footer.component";
-import { SideBarComponent } from "./sidebar/sidebar.component";
+import { SideBarComponent } from "../admin-page/sidebar/sidebar.component";
 import { LogoModule } from "../shared/components/logo/logo.module";
 import { CarCardComponent } from "./pages/car-card/car-card.component";
 import { CarListComponent } from "./pages/car-list/car-list.component";
@@ -20,6 +20,8 @@ import { CheckBoxModule } from "../shared/components/checkbox/checkbox.module";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { ButtonCloseModule } from "../shared/components/button-close/button-close.module";
 import { AlertModule } from "../shared/components/alert/alert.module";
+import { PaginatorModule } from "../shared/components/paginator/paginator.module";
+import { LoaderModule } from "../shared/components/loader/loader.module";
 
 @NgModule({
   declarations: [
@@ -47,6 +49,8 @@ import { AlertModule } from "../shared/components/alert/alert.module";
     ReactiveFormsModule,
     ButtonCloseModule,
     AlertModule,
+    PaginatorModule,
+    LoaderModule,
   ],
   exports: [AdminPageComponent],
 })

@@ -1,0 +1,41 @@
+<button class="paginator__button paginator__button-step" (click)="onPrevStep()">
+  <<
+</button>
+<button
+  *ngIf="activePage >= numThree"
+  class="paginator__button"
+  (click)="onClick(startPage)"
+>
+  {{ startPage }}
+</button>
+<span *ngIf="activePage > numThree" class="paginator__points">...</span>
+<button
+  *ngIf="prevPage != minPage"
+  class="paginator__button"
+  (click)="onClick(prevPage)"
+>
+  {{ prevPage }}
+</button>
+<div class="curent-page paginator__button">
+  {{ activePage }}
+</div>
+<button
+  *ngIf="activePage != totalPages"
+  class="paginator__button"
+  (click)="onClick(nextPage)"
+>
+  {{ nextPage }}
+</button>
+<span *ngIf="activePage < totalPages - numTwo" class="paginator__points"
+  >...</span
+>
+<button
+  *ngIf="activePage <= totalPages - numTwo"
+  class="paginator__button"
+  (click)="onClick(totalPages)"
+>
+  {{ totalPages }}
+</button>
+<button class="paginator__button paginator__button-step" (click)="onNextStep()">
+  >>
+</button>

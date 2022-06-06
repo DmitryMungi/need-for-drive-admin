@@ -64,5 +64,6 @@ export class CardService {
 
   resetNewCar() {
     this.newCar = new CarModel(<ICar>{});
+    this.newCarRes = <ICarRes>{};
   }
 }

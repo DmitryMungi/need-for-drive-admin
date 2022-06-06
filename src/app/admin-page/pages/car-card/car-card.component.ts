@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from "@angular/core";
+import { Component, OnDestroy, OnInit, ViewChild } from "@angular/core";
 import { map, take, tap } from "rxjs";
 import { CardApiService } from "./car-card.api.service";
 import { CardService } from "./card.service";
@@ -16,16 +16,16 @@ import { CarSettingComponent } from "./car-setting/car-setting.component";
   templateUrl: "./car-card.component.html",
   styleUrls: ["./car-card.component.less"],
 })
-export class CarCardComponent implements OnInit {
+export class CarCardComponent implements OnInit, OnDestroy {
   @ViewChild("carView") carView!: CarViewComponent;
   @ViewChild("carSetting") carSetting!: CarSettingComponent;
-  public formModel: FormGroup = new FormGroup({});
 
   constructor(
     private cardApiService: CardApiService,
     private cardService: CardService
   ) {}
 
+  public formModel: FormGroup = new FormGroup({});
   public categoryList: string[] = [];
   public totalProcent: number = START_COUNT;
   public newCar: ICar = this.cardService.getCar();
@@ -111,5 +111,10 @@ export class CarCardComponent implements OnInit {
     this.cardApiService.deleteNewCar(id).subscribe();
     this.cancelValues();
     this.carSetting.onCancel();
+  }
+
+  ngOnDestroy(): void {
+    this.formModel.reset();
+    this.cardService.resetNewCar();
   }
 }

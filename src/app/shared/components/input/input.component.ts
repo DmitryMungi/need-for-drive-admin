@@ -42,11 +42,11 @@ export class InputComponent implements OnInit, ControlValueAccessor, OnDestroy {
   @Input() max?: number;
   @Input() value: string = "";
   @Input() errorText: string = "";
+  @Input() isRequired: boolean = true;
 
   @Output() changeValue = new EventEmitter<string>();
 
   private subscription!: Subscription;
-
   inputControl = new FormControl("", [
     Validators.required,
     Validators.minLength(1),

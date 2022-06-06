@@ -1,1 +1,89 @@
-<h2>Список авто</h2>
+<h2 class="car-list_title">Список авто</h2>
+
+<div class="table-wrapp">
+  <div class="table-filters">
+    <div class="table-filters__input-wrapp">
+      <div class="input">
+        <select
+          class="input__field"
+          (change)="selectChange(typeSelect.value)"
+          #typeSelect
+        >
+          <option>Не выбранно</option>
+          <option *ngFor="let item of category">
+            {{ item.name }}
+          </option>
+        </select>
+      </div>
+      <app-input
+        (changeValue)="applyParam({ name: $event })"
+        [isRequired]="false"
+        placeholder="Введите название"
+      >
+      </app-input>
+    </div>
+    <div class="wrappp-btn">
+      <button class="btn btn-red" (click)="clearParams()">Сбросить</button>
+      <button class="btn btn-primary" (click)="getCars()">Применить</button>
+    </div>
+  </div>
+  <table class="table" *ngIf="cars$ | async as cars; else loading">
+    <thead class="table__heading">
+      <tr>
+        <th class="table__cell">Название</th>
+        <th class="table__cell">Категория</th>
+        <th class="table__cell">Номер</th>
+        <th class="table__cell">Описание</th>
+        <th class="table__cell">Минимальная цена</th>
+        <th class="table__cell">Мфксимальная цена</th>
+        <th class="table__cell">Доступные цвета</th>
+      </tr>
+    </thead>
+    <tbody class="table__body">
+      <tr class="table__row" *ngFor="let car of cars" (click)="onClickRow(car)">
+        <td class="table__cell">
+          <span *ngIf="car.name; else unknown">
+            {{ car.name }}
+          </span>
+        </td>
+        <td class="table__cell">
+          <span *ngIf="car.categoryId && car.categoryId.name; else unknown">
+            {{ car.categoryId.name }}
+          </span>
+        </td>
+        <td class="table__cell">
+          <span *ngIf="car.number; else unknown">
+            {{ car.number }}
+          </span>
+        </td>
+        <td class="table__cell">
+          <span *ngIf="car.description; else unknown">
+            {{ car.description }}
+          </span>
+        </td>
+        <td class="table__cell">
+          <span *ngIf="car.priceMin; else unknown"> {{ car.priceMin }}</span>
+        </td>
+        <td class="table__cell">
+          <span *ngIf="car.priceMax; else unknown">
+            {{ car.priceMax }}
+          </span>
+        </td>
+        <td class="table__cell">
+          <span *ngIf="car.colors; else unknown">
+            {{ car.colors }}
+          </span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <ng-template #loading>
+    <app-loader></app-loader>
+  </ng-template>
+  <app-paginator
+    class="table-paginator"
+    [totalPages]="numberOfPages"
+    (changePage)="changePage($event)"
+  ></app-paginator>
+</div>
+<ng-template #unknown> Неизвестно </ng-template>

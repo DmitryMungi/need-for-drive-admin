@@ -8,3 +8,9 @@ export const DELETE_NEW_CAR_TEXT = "Машина удалена";
 export const CHANGE_NEW_CAR_TEXT = "Изменения внесены!";
 export const SAVE_CAR_ERROR_TEXT = "Ошибка, попробуйте еще раз";
 export const ERROR_RES_STATUS = 401;
+
+export const NUM_ZERO = 0;
+export const NUM_ONE = 1;
+export const NUM_TWO = 2;
+export const NUM_THREE = 3;
+export const NUM_TEN = 10;

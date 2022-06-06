@@ -1,0 +1,55 @@
+.table-wrapp {
+  width: 100%;
+  padding: 15px 20px 60px 20px;
+  background: @color-white;
+  border-radius: 9px;
+  box-shadow: @shadow;
+  min-height: 507px;
+  position: relative;
+
+  .table-paginator {
+    position: absolute;
+    bottom: 20px;
+  }
+}
+
+.table-filters {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+
+  &__input-wrapp {
+    display: flex;
+    align-items: center;
+  }
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+
+  &__heading {
+    font-weight: 700;
+    font-size: 12px;
+    color: @color-navy-blue;
+  }
+
+  &__body {
+    font-weight: 400;
+    font-size: 12px;
+    color: @color-grey-40;
+  }
+
+  &__row {
+    cursor: pointer;
+    &:hover {
+      background: fade( @color-grey-10, 30);
+    }
+  }
+
+  &__cell {
+    padding: 11px 0;
+    text-align: center;
+  }
+}
