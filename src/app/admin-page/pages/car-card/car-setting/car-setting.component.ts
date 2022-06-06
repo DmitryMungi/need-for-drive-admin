@@ -38,7 +38,7 @@ export class CarSettingComponent implements OnInit {
     model: new FormControl("", [Validators.required, Validators.minLength(3)]),
     type: new FormControl("", [Validators.required, this.typeValidator]),
     number: new FormControl("", Validators.required),
-    colors: new FormControl([], [Validators.required, this.colorValidator]),
+    colors: new FormControl([], [Validators.required]),
     priceMin: new FormControl(0, [Validators.required, this.priceValidator]),
     priceMax: new FormControl(0, [Validators.required, this.priceValidator]),
   });
@@ -64,22 +64,18 @@ export class CarSettingComponent implements OnInit {
           model: this.carRes.name,
           type: this.carRes.categoryId.name ? this.carRes.categoryId.name : "",
           number: this.carRes.number,
-          colors: [this.carRes.colors[0]],
+          colors: [""],
           priceMin: this.carRes.priceMin,
           priceMax: this.carRes.priceMax,
         });
         this.changeType(this.carRes.categoryId.name);
-        this.colorsList = this.carRes.colors;
+        this.colorsList = this.carRes.colors.slice();
       }, 500);
     }
   }
 
   priceValidator(control: FormControl): { [s: string]: boolean } | null {
     return control.value != 0 ? null : { priceMin: true };
-  }
-
-  colorValidator(control: FormControl): { [s: string]: boolean } | null {
-    return control.value != [] && control.value != "" ? null : { colors: true };
   }
 
   typeValidator(control: FormControl): { [s: string]: boolean } | null {
@@ -91,6 +87,7 @@ export class CarSettingComponent implements OnInit {
       this.colorsList.push(value);
       this.setProcent.emit();
     }
+    this.settingForm.patchValue({ colors: [""] });
   }
 
   changeModel(value: string) {

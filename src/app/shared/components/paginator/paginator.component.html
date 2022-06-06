@@ -2,22 +2,17 @@
   <<
 </button>
 <button
+  *ngIf="activePage >= numThree"
   class="paginator__button"
   (click)="onClick(startPage)"
-  [ngClass]="{ hidden: activePage < numThree }"
 >
   {{ startPage }}
 </button>
-<span
-  *ngIf="activePage > numThree"
-  (click)="onClick(prevPage)"
-  class="paginator__points"
-  >...</span
->
+<span *ngIf="activePage > numThree" class="paginator__points">...</span>
 <button
+  *ngIf="prevPage != minPage"
   class="paginator__button"
   (click)="onClick(prevPage)"
-  [ngClass]="{ hidden: prevPage == minPage }"
 >
   {{ prevPage }}
 </button>
@@ -25,9 +20,9 @@
   {{ activePage }}
 </div>
 <button
+  *ngIf="activePage != totalPages"
   class="paginator__button"
   (click)="onClick(nextPage)"
-  [ngClass]="{ hidden: activePage == totalPages }"
 >
   {{ nextPage }}
 </button>
@@ -35,9 +30,9 @@
   >...</span
 >
 <button
+  *ngIf="activePage <= totalPages - numTwo"
   class="paginator__button"
   (click)="onClick(totalPages)"
-  [ngClass]="{ hidden: activePage > totalPages - numTwo }"
 >
   {{ totalPages }}
 </button>
